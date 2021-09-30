@@ -1,0 +1,16 @@
+.register-page {
+  background-image: linear-gradient(to top,rgba(0, 0, 0, 0.712),rgba(0, 0, 0, 0.089)),url(../../assets/requirements.png);
+  /* background-image:  url(../../assets/main-bg.jpg) ; */
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+}
+
+.reg-form-custom {
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  background-color: rgba(31, 31, 35, 0.75);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.125);
+}
+

@@ -1,0 +1,65 @@
+.features-page {
+  background-image: url(../../../assets/features.jpg);
+  background-size: cover;
+  background-position: center;
+  min-height: 120vh;
+}
+
+.features-page .display-4 {
+  color: whitesmoke;
+  font-weight: 500;
+}
+
+.features-page .lead {
+  color: whitesmoke;
+  margin-top: 100px;
+}
+
+.list-menu {
+  color: whitesmoke;
+  margin-top: 20px;
+  border-left: 2px solid;
+  padding: 0 20px 0 30px;
+}
+
+.list-features {
+  padding: 10px 25px;
+  font-size: 16px;
+  line-height: 1.7;
+  position: relative;
+  height: 100px;
+  margin-bottom: 20px;
+}
+
+.list-features:before {
+  content: "";
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: black;
+  border: 3px solid;
+  position: absolute;
+  top: 10px;
+  left: -40px;
+}
+
+.list-features h3 {
+  color: orange;
+  width: 50%;
+}
+
+.list-features p {
+  color: whitesmoke;
+  width: 50%;
+}
+
+@media (min-width: 992px) {
+  .list-features h3 {
+    width: 300px;
+  }
+
+  .list-features p {
+    width: 300px;
+  }
+}

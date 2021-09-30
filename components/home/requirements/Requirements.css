@@ -1,0 +1,32 @@
+.requirements-page {
+  background-image: url(../../../assets/requirements.png);
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+}
+
+.requirements-page .display-4 {
+  color: whitesmoke;
+  font-weight: 500;
+  margin-top: 20px;
+}
+
+.requirements-page .lead {
+  color: whitesmoke;
+}
+
+.table-requrements {
+  table-layout: fixed;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.table-requrements span {
+  color: orange;
+}
+
+.table-requrements td {
+  border: 1px solid rgb(220, 220, 220, 0.3);
+  text-align: left;
+  color: whitesmoke;
+}

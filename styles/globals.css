@@ -1,16 +1,72 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+
+html {
+  --clr-primary: #FFB548;
+  --clr-primary-accent: #F3AF34;
+  --clr-secondary: #1A1C1D;
+  --clr-secondary-accent: #5D5E5E;
+  --ff-game: 'Fredoka One', sans-serif;
+  --clr-selected: #C6C2C4;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+
+/* override bootstrap modal */
+.modal-header,
+.modal-body,
+.modal-footer{
+  color: white;
+  padding: 30px;
+  opacity: 0.9;
+  border: none !important;
+}
+.modal-content {
+  overflow:hidden;
+  backdrop-filter: blur(16px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
+  background-color: rgba(31, 31, 35, 0.75) !important;
+  border-radius: 12px !important;
+  border: 1px solid rgba(255, 255, 255, 0.125) !important;
 }
 
-* {
-  box-sizing: border-box;
+.modal-footer button,
+.modal-footer a {
+  padding: 8px 10px;
+  border-radius: 8px ;
+  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
 }
+
+.modal-footer button:focus {
+  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+.modal-footer button:active ,
+.modal-footer a:active{
+  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset !important;
+}
+
+/* bootstrap carousel */
+.carousel {
+  border-radius: 55px 55px 55px 55px;
+  overflow: hidden;
+}
+
+.form-control:focus {
+  border-color: var(--clr-primary) !important;
+  box-shadow: 0 0 5px var(--clr-primary-accent) !important;
+}
+
+
+/* button style custom */
+.custom-button button,
+.custom-button a {
+  padding: 8px 10px;
+  border-radius: 8px ;
+  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+
+.custom-button button:focus {
+  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+.custom-button button:active {
+  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset !important;
+}
+

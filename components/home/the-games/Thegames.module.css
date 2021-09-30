@@ -1,0 +1,14 @@
+.gamesPage {
+  background-image: url(/img/the-games-bg.jpg);
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  color: white;
+}
+
+@media (min-width: 992px) {
+  .slider-layout {
+    position: relative;
+    left: 30%;
+  }
+}

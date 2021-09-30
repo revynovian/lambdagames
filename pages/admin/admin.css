@@ -1,0 +1,43 @@
+.alert-custom h2 {
+  font-size: 3rem;
+  font-weight: bold;
+}
+.alert-custom {
+  /* backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%); */
+  background-color: rgba(31, 31, 35, 0.75);
+  border-radius: 12px !important;
+  border: 1px solid rgba(255, 255, 255, 0.125);
+}
+
+.alert-custom:hover {
+  transform: translateY(5px);
+  transition: 0.2s ease-in;
+  box-shadow: rgba(233, 176, 21, 0.623) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+
+.alert-custom-main {
+  box-shadow: rgba(233, 176, 21, 0.623) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  background-color: rgba(31, 31, 35, 0.75);
+  border-radius: 12px !important;
+}
+
+.custom-table {
+  /* backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%); */
+  background-color: rgba(31, 31, 35, 0.75);
+  /* border: 1px solid rgba(255, 255, 255, 0.125); */
+  border-radius: 12px;
+  width: auto;
+  color: rgb(182, 180, 180);
+  border: none;
+}
+
+.custom-table tr > td {
+  border-bottom: 0.1rem solid rgb(182, 179, 179);
+  border-radius: 12px ;
+}
+
+.custom-table td, th {
+  padding: 20px;
+}

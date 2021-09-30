@@ -1,0 +1,35 @@
+/* 
+/* ==footer-section== */
+/* social-media links */
+
+.footerCustom li a {
+  text-decoration: none;
+  color: var(--clr-secondary-accent);
+  
+}
+
+.footerCustom li {
+  list-style-type: none;
+}
+
+.footerCustom li a:hover {
+  color: white;
+}
+
+/* footer-nav */
+.footerCustom {
+  background-color: black;
+  text-transform: uppercase;
+  font-weight: bold;
+  
+}
+
+.footerCustom_line {
+  border-top: thin solid var(--clr-secondary-accent);
+}
+
+.footerCustom_line li + li:before{
+  content: " | ";
+  padding: 0 10px;
+  color: var(--clr-secondary-accent);
+}

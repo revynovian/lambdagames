@@ -1,11 +1,11 @@
-import "./Register.css";
+import styles from "./Register.module.css";
 import React, { useState } from "react";
-import Axios from "axios";
+// import Axios from "axios";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 const Register = (props) => {
-  const url = "http://localhost:3000/user/register";
+  // const url = "http://localhost:3000/user/register";
   const [player, setPlayer] = useState({
     username: "",
     email: "",
@@ -26,35 +26,35 @@ const Register = (props) => {
   const handlerRegister = (e) => {
     e.preventDefault();
     setisLoading(true)
-    Axios.post(url, {
-      username: player.username,
-      email: player.email,
-      password: player.password,
-      firstname: player.firstname,
-      lastname: player.lastname,
-      city: player.city,
-      bio: player.bio,
-    })
-      .then((response) => {
-        // console.log(response.player);
-        setisLoading(false);
-        props.history.push("/login");
-      })
-      .catch((error) => {
-        if (error.response.status === 401 || error.response.status === 400) {
-          setError(error.response.data.message);
-        } else {
-          setError("Something went wrong. Please try again later");
-        }
-        setisLoading(false);
-        console.error("Failed:", error);
-      });
+    // Axios.post(url, {
+    //   username: player.username,
+    //   email: player.email,
+    //   password: player.password,
+    //   firstname: player.firstname,
+    //   lastname: player.lastname,
+    //   city: player.city,
+    //   bio: player.bio,
+    // })
+    //   .then((response) => {
+    //     // console.log(response.player);
+    //     setisLoading(false);
+    //     props.history.push("/login");
+    //   })
+    //   .catch((error) => {
+    //     if (error.response.status === 401 || error.response.status === 400) {
+    //       setError(error.response.data.message);
+    //     } else {
+    //       setError("Something went wrong. Please try again later");
+    //     }
+    //     setisLoading(false);
+    //     console.error("Failed:", error);
+    //   });
   };
   return (
     <div>
-        <Container fluid className="register-page p-5 custom-button">
+        <Container fluid className={`${styles.registerPage} p-5`}>
           <Row className="justify-content-center p-5">
-            <Col md={5} className="text-white p-5 reg-form-custom" >
+            <Col md={5} className={`text-white p-5 ${styles.background}`} >
               <h2 className="text-center">Sign Up</h2>
               {error && <div className="error">{error}</div>}
 
@@ -98,7 +98,7 @@ const Register = (props) => {
                   <Form.Control required as="textarea" id="bio" name="bio" onChange={(e) => handle(e)} value={player.bio} placeholder="Enter short description about you" />
                 </Form.Group>
 
-                <Row className="mb-4">
+                <Row className="mb-4 custom-button">
                   <Col className="text-center">
                     <Button variant="warning" type="submit" className="ps-5 pe-5">
                     <strong>{isLoading ? 'Loading…' : 'Register'}</strong>
@@ -107,8 +107,8 @@ const Register = (props) => {
                 </Row>
 
                 <Row>
-                  <Col className="text-center text-link">
-                    <Link to="/login" className="text-warning">
+                  <Col className={`text-center ${styles.link}`}>
+                    <Link href="/login" className="text-warning">
                       Have an account? Login
                     </Link>
                   </Col>

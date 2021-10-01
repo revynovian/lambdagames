@@ -1,8 +1,8 @@
 import React , { useState } from "react";
 import { Row, Col, Form, Button, Modal, Alert} from "react-bootstrap";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
+
+import { FaTimes } from "react-icons/fa";
 import Axios from "axios";
 
 
@@ -49,7 +49,7 @@ const Save = ({ dataScoreOld, dataScore, gameID , userID, IsModalOpened, onClose
           <Modal.Header className="custom-button">
               <Modal.Title>Submit Your Score</Modal.Title>
               <Button onClick={onCloseModal} variant="secondary">
-                  <FontAwesomeIcon icon={faTimes} />
+                  <FaTimes />
               </Button>
             </Modal.Header>
             {success && (

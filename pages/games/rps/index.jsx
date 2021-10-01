@@ -7,7 +7,7 @@ import { Container, Row, Col, Alert } from "react-bootstrap";
 // import LeaderBoard from "../leaderboard-table";
 
 import { FaTrophy } from 'react-icons/fa';
-
+import styles from "../Games.module.css"
 // import Axios from "axios";
 
 
@@ -94,7 +94,7 @@ const RpsPage = () => {
 
   return (
     <div style={{ backgroundImage: 'url("/img/dark-honeycomb.png")', height: "100vh"}}>
-      <Container className="dashboard-custom py-5 custom-button"> 
+      <Container className="py-5 custom-button"> 
         <Row>
           <Col>
           {/* <GameBoard 
@@ -110,9 +110,9 @@ const RpsPage = () => {
             {/* <LeaderBoard isLoad={isLoading} dataPlayers={ranked}/> */}
           </Col>
           <Col md={2} className="text-center text-white mt-3">
-              <Alert className="alert-custom">
+              <Alert className={styles.alertCustom}>
                 <Alert.Heading className="lead">Top #1</Alert.Heading>
-                <h1><FaTrophy className="custom-icon-trophy"/></h1>
+                <h1><FaTrophy /></h1>
                 {/* <h4>{topPlayer}</h4> */}
             </Alert>
             </Col>

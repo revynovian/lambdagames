@@ -1,12 +1,17 @@
-.notfound-page {
+.aboutPage {
   background-color: var(--clr-secondary);
   background-size: cover;
   background-position: center;
   min-height: 100vh;
-  background-image: linear-gradient(to top,rgba(0, 0, 0, 0.712),rgba(0, 0, 0, 0.089)),url(../../../assets/requirements.png);
+  background-image: linear-gradient(to top,rgba(0, 0, 0, 0.712),rgba(0, 0, 0, 0.089)),url(/img/requirements.png);
+  
 }
 
-.notfound-blur {
+.aboutPage h1{
+  font-family: var(--ff-game);
+}
+
+.background {
   backdrop-filter: blur(16px) saturate(180%);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
   background-color: rgba(31, 31, 35, 0.75);

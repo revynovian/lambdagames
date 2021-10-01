@@ -171,7 +171,7 @@ const Profile = () => {
           <Col md={4} className={`text-white py-4 m-5 custom-button ${styles.background}`} style={{ height: '40%' }}>
             <Container>
               <h2>Delete Your Account</h2>
-              <Alert className="mt-3">
+              <Alert className={`mt-3 ${styles.alertCustom}`}>
                 <Alert.Heading>
                   Hey, <strong className="text-warning">{player.username} </strong> Are sou sure?
                 </Alert.Heading>

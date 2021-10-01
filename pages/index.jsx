@@ -21,7 +21,7 @@ const Home = () => {
               <h1 className={styles.textAnimation_b}>TRADITIONAL GAME</h1>
               <h2 className={styles.typing}>Experience new traditional game play</h2>
               <Link href="/games/rps/play" passHref>
-                <Button  className={`${styles.customButton} mt-5 `} role="button">
+                <Button  className={`${styles.customButton} mt-5 `} variant="warning">
                   <strong>PLAY NOW</strong>
                 </Button>
               </Link>

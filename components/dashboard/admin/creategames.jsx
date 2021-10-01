@@ -1,14 +1,14 @@
-import "../dashboard.css"
+// import "../dashboard.css"
 import React, {useState} from "react";
 import { Button, Modal, Form, Row, Col, Alert} from "react-bootstrap";
-import Axios from "axios";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
+// import Axios from "axios";
+
+import { FaTimes } from "react-icons/fa";
 
 const CreateGames = ({IsModalOpened, onCloseModal , isSending}) => {
   
-  const accessToken = localStorage.getItem('token');
-  const url = "http://localhost:3000/admin/games/add";
+  // const accessToken = localStorage.getItem('token');
+  // const url = "http://localhost:3000/admin/games/add";
   const [newGame, setNewGame] = useState({
     game_name : "",
     description: "",
@@ -31,17 +31,17 @@ const CreateGames = ({IsModalOpened, onCloseModal , isSending}) => {
     e.preventDefault()
     console.log("test")
 
-    Axios.post(url, newGame, {
-        headers: { Authorization: accessToken },
-      })
-        .then((res) => {
-          console.log(res.data.message)
-          setSuccess(true)
-          isSending(true)
-        })
-        .catch((error) => {
-          console.log(error);
-      });
+    // Axios.post(url, newGame, {
+    //     headers: { Authorization: accessToken },
+    //   })
+    //     .then((res) => {
+    //       console.log(res.data.message)
+    //       setSuccess(true)
+    //       isSending(true)
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //   });
   
   }
 
@@ -58,7 +58,7 @@ const CreateGames = ({IsModalOpened, onCloseModal , isSending}) => {
             <Modal.Header className="custom-button">
               <Modal.Title>Add New Games</Modal.Title>
               <Button onClick={handleClose} variant="secondary">
-                  <FontAwesomeIcon icon={faTimes} />
+                  <FaTimes />
               </Button>
             </Modal.Header>
             <Form onSubmit={handlerCreate}>

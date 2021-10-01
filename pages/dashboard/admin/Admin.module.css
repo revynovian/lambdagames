@@ -1,28 +1,40 @@
-.alert-custom h2 {
+.alertCustom h2 {
   font-size: 3rem;
   font-weight: bold;
+  color: white;
 }
-.alert-custom {
+.alertCustom h4,
+.alertCustom hr {
+  font-size: 2rem;
+  font-weight: bold;
+  color: white ;
+}
+.alertCustom h5 {
+  font-size: 1.2rem;
+}
+
+.alertCustom {
   /* backdrop-filter: blur(16px) saturate(180%);
   -webkit-backdrop-filter: blur(16px) saturate(180%); */
   background-color: rgba(31, 31, 35, 0.75);
   border-radius: 12px !important;
-  border: 1px solid rgba(255, 255, 255, 0.125);
+  /* border: 1px solid rgba(255, 255, 255, 0.125); */
+  border: none;
 }
 
-.alert-custom:hover {
+.alertCustom:hover {
   transform: translateY(5px);
   transition: 0.2s ease-in;
   box-shadow: rgba(233, 176, 21, 0.623) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 
-.alert-custom-main {
+.alertCustom-main {
   box-shadow: rgba(233, 176, 21, 0.623) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
   background-color: rgba(31, 31, 35, 0.75);
   border-radius: 12px !important;
 }
 
-.custom-table {
+.tableCustom {
   /* backdrop-filter: blur(16px) saturate(180%);
   -webkit-backdrop-filter: blur(16px) saturate(180%); */
   background-color: rgba(31, 31, 35, 0.75);
@@ -33,11 +45,12 @@
   border: none;
 }
 
-.custom-table tr > td {
+.tableCustom tr > td {
   border-bottom: 0.1rem solid rgb(182, 179, 179);
   border-radius: 12px ;
 }
 
-.custom-table td, th {
+.tableCustom td,
+.tableCustom th {
   padding: 20px;
 }

@@ -1,4 +1,4 @@
-import "../dashboard.css"
+import styles from "../Gamecard.module.css"
 import React from "react";
 import {Button, Modal, } from "react-bootstrap";
 
@@ -35,7 +35,7 @@ const DeleteGames = ({gameID, IsModalOpened, onCloseModal, isSending}) => {
               <Modal.Title>Are You Sure?</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <strong></strong> This action can't be undone
+              <strong></strong> This action can&apos;t be undone
             </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={onCloseModal}>

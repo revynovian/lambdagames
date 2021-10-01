@@ -1,9 +1,9 @@
 import React from "react";
-import "./game-board.css";
+import styles from "./GameBoard.module.css";
 import {Row , Col, Button} from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+
+import { FaArrowRight } from 'react-icons/fa';
 
 const GameBoard = (props) => {
 
@@ -22,7 +22,7 @@ const GameBoard = (props) => {
         </Button>
         <Link to={`${props.gameLink}/play`} className="text-warning">
           <Button variant="warning" type="submit">
-            Play Now <FontAwesomeIcon icon={faArrowRight} /> 
+            Play Now <FaArrowRight /> 
           </Button>
         </Link>
     </Col>

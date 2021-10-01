@@ -1,84 +1,76 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-// import Axios from "axios";
+import Axios from "axios";
 
 import styles from "./Dashboard.module.css";
 import { Container, Row, Col, Button, Modal, Image} from "react-bootstrap";
 import { FaCalendarAlt, FaEdit, FaMapMarkerAlt, FaImage, FaCubes } from 'react-icons/fa';
 
-// import GameCards from "../dashboard/gamecard"
+import GameCards from "../../components/dashboard/Gamecard"
 
-// import userCoverImgHolder from "../../assets/sample-cover.jpg"
-// import userImgHolder from "../../assets/sample-ava.png"
+// import userCoverImgHolder from "../../public/img/sample-cover.png"
+// import userImgHolder from "../../public/img/sample-ava.png"
 
-const Dashboard = () => {
-  // const userID = localStorage.getItem("userID");
-  // const accessToken = localStorage.getItem("token");
+// This gets called on every request
+export async function getServerSideProps() {
+  // url constant
+  const userID = 1;
+  const accessToken = "";
   const API_BASE_URL = "http://localhost:3000";
-  // const url = `${API_BASE_URL}/user/${userID}`;
+  const url = `${API_BASE_URL}/user/${userID}`;
+  const urlGames = API_BASE_URL+"/user/games/";
   // const urlUpdateImage = `${API_BASE_URL}/user/update/image/${userID}`;
-  const urlGames = API_BASE_URL+"/admin/games/";
+
+  // Fetch data from external API
+
+  const {data : playerData} = await Axios.get(url, {
+      headers: { Authorization: accessToken },
+    })
   
-  const [gameList , setGameList] = useState([])
-  const [player, setPlayer] = useState({});
-  const [playerDetail, setPlayerDetail] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
-  const [urlImg, setUrlImg] = useState("")
-  const [urlImgCover, setUrlImgCover] = useState("")
+  const {data : gamesData} = await Axios.get(urlGames, {
+    headers: { Authorization: accessToken },
+  })
+    // Pass data to the page via props
+    
+  return { 
+    props: { 
+      player : playerData.message,
+      gameList : gamesData.message
+    } 
+  }
+}
 
-  // useEffect(() => {
-  //   Axios.get(url, {
-  //     headers: { Authorization: accessToken },
-  //   })
-  //     .then((res) => {
-  //       // console.log(res.data.message)
-  //       setIsLoading(true);
-  //       const basicInfo = res.data.message;
-  //       const detailInfo = res.data.message.User_Detail;
-  //       const profileImg = res.data.message.User_Detail.profile_url;
-  //       const coverImg = res.data.message.User_Detail.cover_url;
-  //       // console.log(imgInfo);
-  //       setPlayer(basicInfo);
-  //       setPlayerDetail(detailInfo);
-  //       setUrlImg(profileImg);
-  //       setUrlImgCover(coverImg);
-        
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
 
-  //     Axios.get(urlGames, {
-  //       headers: { Authorization: accessToken },
-  //     })
-  //       .then((res) => {
-  //         const gamelist = res.data.message;
-  //         // console.log(gamelist)
-  //         setGameList(gamelist)
-  //       })
-  //       .catch((error) => {
-  //         console.log(error);
-  //       });
-  // }, [url,urlGames, accessToken]);
+const Dashboard = ({player, gameList}) => {
+  
+
+  // const [isLoading, setIsLoading] = useState(false);
+  const urlImg = player.User_Detail.profile_url;
+  const urlImgCover = player.User_Detail.cover_url;
+  const playerDetail = player.User_Detail;
+
+  // console.log(player)
+  // console.log(gameList)
+
 
   // convert date to get player's joined date
   const getDate = new Date(player.createdAt);
   const joinDate = getDate.toLocaleString("default", { month: "long", year: "numeric" });
 
   // gameList Library from api
-  // const gameListLibrary = gameList.map((e) => 
-  // <GameCards
-  //   key={e.id}
-  //   gameID={e.id}
-  //   gameName={e.game_name} 
-  //   gameDescription={e.description} 
-  //   gameThumbnail={e.thumbnail_url} 
-  //   gameCover={e.cover_url} 
-  //   gameReady={e.availability} 
-  //   gameLink={e.game_link}
-  //   isAdmin={false}
-  // />
-  // )
+  const gameListLibrary = gameList.map((e) => 
+  <GameCards
+    key={e.id}
+    gameID={e.id}
+    gameName={e.game_name} 
+    gameDescription={e.description} 
+    gameThumbnail={e.thumbnail_url} 
+    gameCover={e.cover_url} 
+    gameReady={e.availability} 
+    gameLink={e.game_link}
+    isAdmin={false}
+  />
+  )
 
 
    // bootstrap modal
@@ -125,6 +117,8 @@ const Dashboard = () => {
 
 //   }, [coverFile])
 
+
+  // select file to upload
   const onSelectFile = e => {
       if (!e.target.files || e.target.files.length === 0) {
           setphotoFile(undefined)
@@ -138,65 +132,35 @@ const Dashboard = () => {
         return
     }
     setcoverFile(e.target.files[0])
-}
+  }
     
-  // upload profile to cloudinary
-  const cloudinary_API = "https://api.cloudinary.com/v1_1/revynovian/image/upload";
 
-  const uploadImage = async () =>{    
-    const data = new FormData()
-    data.append("file", photoFile)
-    data.append("upload_preset", "binar-profileimg")
-    try {
-      const res = await Axios.post(cloudinary_API, data)
-      const url = res.data.secure_url;
-      setUrlImg(url)
-      setShow(false);
-      await Axios.put(urlUpdateImage, {
-        profileUrl : url,
-        coverUrl: urlImgCover
-      })
-    } catch(err) {
-      console.log(err)
-    }
+  const uploadImage = async () => {    
+    console.log('test')
   }
   // upload profile to cloudinary
-  const uploadImageCover = async () =>{    
-    const data = new FormData()
-    data.append("file", coverFile)
-    data.append("upload_preset", "binar-coverimg")
-    try {
-      const res = await Axios.post(cloudinary_API, data)
-      const url = res.data.secure_url;
-      setUrlImgCover(url)
-      setShow(false);
-      await Axios.put(urlUpdateImage, {
-        profileUrl : urlImg,
-        coverUrl: url
-      })
-    } catch(err) {
-      console.log(err)
-    }
+  const uploadImageCover = async () => {    
+    console.log('test')
   }
 
   // set image background / placeholder
   const [backImg, setBackImg] = useState("");
   const [userImg, setBackUserImg] = useState(""); 
   
-  // useEffect (() => {
-  //   (!urlImgCover) ? setBackImg(userCoverImgHolder) : setBackImg(urlImgCover);
-  //   (!urlImg) ? setBackUserImg(userImgHolder) : setBackUserImg(urlImg);
-  // }, [urlImgCover, urlImg])
+  useEffect (() => {
+    (!urlImgCover) ? setBackImg("/img/sample-cover.jpg") : setBackImg(urlImgCover);
+    (!urlImg) ? setBackUserImg("/img/sample-ava.png") : setBackUserImg(urlImg);
+  }, [urlImgCover, urlImg])
 
   return (
     <div style={{ backgroundImage: `url("/img/dark-honeycomb.png")` , height: "vh-100"}}>
       <Container className="py-5">
-        <Row className="justify-content-center mb-2 text-white p-4 mt-5 profile-card"  style={{backgroundImage: `url(${backImg})`, backgroundSize:"cover"}}>
-          <Container className="profile-card-custom px-4 pt-2">
+        <Row className={`justify-content-center mb-2 text-white p-4 mt-5 ${styles.profileCard}`}  style={{backgroundImage: `url(${backImg})`, backgroundSize:"cover"}}>
+          <Container className={`${styles.profileCard_custom} px-4 pt-2`}>
             <Row>
             <Col md={2} className="text-center d-flex flex-column justify-content-between">
-              <Image className="profile" src={userImg} alt="Avatar"/>
-              <Button variant="secondary" type="submit" className="mt-3 mx-4 badge text-secondary" onClick={handleShow} style={{background : "transparent"}}>
+              <Image className={styles.profile} src={userImg} alt="Avatar"/>
+              <Button variant="secondary" type="submit" className="mt-3 mx-auto badge text-secondary" onClick={handleShow} style={{background : "transparent"}}>
                 <FaImage /> change photo
               </Button>
             </Col>
@@ -209,15 +173,15 @@ const Dashboard = () => {
             </Col>
             </Row>
             <Col md={8} className="placeholder-glow mt-4">
-              <h2 className="text-warning">{isLoading ? player.username : <span className="text-muted rounded placeholder col-4" />}</h2>
-              <h5 className="lead">{isLoading ? playerDetail.bio : <span className="text-muted rounded placeholder col-4" />}</h5>
+              <h2 className="text-warning">{player.username}</h2>
+              <h5 className="lead">{playerDetail.bio}</h5>
               <h6 className="text-muted">
                 <FaMapMarkerAlt className="me-3"/>
-                {isLoading ? playerDetail.city : <span className="rounded placeholder col-3" />}
+                {playerDetail.city}
               </h6>
               <h6 className="text-muted">
                 <FaCalendarAlt className="me-3" />
-                {isLoading ? `Joined ${joinDate}` : <span className="rounded placeholder col-3" />}
+                {`Joined ${joinDate}`}
               </h6>
             </Col>
             <Col className="text-end">
@@ -234,7 +198,7 @@ const Dashboard = () => {
           <h2 className="text-white"><FaCubes /> Games Library</h2>
           <hr />
           {/* game library */}
-          {/* {gameListLibrary} */}
+          {gameListLibrary}
         </Row>
         <Row className="my-5">
           {/* game coming soon */}
@@ -249,7 +213,7 @@ const Dashboard = () => {
               <div className="text-white mt-5">
                 {photoFile ?  <Image style={{width: "150px", height : "150px", borderRadius:"7px"}} src={previewPhoto} alt="preview-profile-photo"/> : 
                 <Image style={{width: "150px", height : "150px", borderRadius:"7px"}}  src="/img/placeholder_ava.png" alt="placeholder-photo"/> }
-                <label className="custom-imput-file" >
+                <label className={styles.inputFile} >
                   <span>Add Photo Profile </span>
                   <input required type="file" name="profile-image" accept="image/*" onChange={onSelectFile} />
                 </label>
@@ -270,7 +234,7 @@ const Dashboard = () => {
               <div className="text-white mt-5">
                 {photoFile ?  <Image style={{width: "400px", height : "200px", borderRadius:"7px"}} src={previewPhotoCover} alt="preview-cover-photo"/> : 
                 <Image style={{width: "400px", height : "200px", borderRadius:"7px"}} src="/img/placeholder_cover.png" alt="placeholder-cover-photo" /> }
-                <label className="custom-imput-file m-3" >
+                <label className={`${styles.inputFile} m-3`} >
                   <span>Add Cover Image</span>
                   <input required type="file" name="profile-image" accept="image/*" onChange={onSelectFileCover} />
                 </label>

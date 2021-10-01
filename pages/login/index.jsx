@@ -52,7 +52,7 @@ const Login = () => {
 
   return (
     <div>
-      <Container fluid className={`${styles.loginPage} custom-button`}>
+      <Container fluid className={`${styles.loginPage}`}>
         <Row className="justify-content-center vh-100 align-items-center pb-5 ">
           <Col md={4} className={`${styles.loginForm_custom} text-white p-5`}>
             <h2 className="text-center">Login</h2>
@@ -78,7 +78,7 @@ const Login = () => {
                 }
               </Form.Group>
 
-              <Row className="mb-4">
+              <Row className="mb-4 custom-button">
                 <Col className="text-center">
                   <Button variant="warning" type="submit" className="ps-5 pe-5" disabled={isLoading}>
                     <strong>{isLoading ? "Loading…" : "Login"}</strong>

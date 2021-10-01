@@ -1,8 +1,8 @@
-import "../dashboard.css"
+import styles from "../Gamecard.module.css"
 import React , {useState } from "react";
 import {Button, Modal,Row, Col, Alert } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
+
+import { FaTimes } from "react-icons/fa";
 
 import Axios from "axios";
 
@@ -81,7 +81,7 @@ const UpdateGames = (
             <Modal.Header className="custom-button">
               <Modal.Title>Edit Game Details</Modal.Title>
               <Button onClick={handleClose} variant="secondary">
-                  <FontAwesomeIcon icon={faTimes} />
+                  <FaTimes />
               </Button>
             </Modal.Header>
             <Modal.Body>

@@ -1,5 +1,5 @@
-.features-page {
-  background-image: url(../../../assets/features.jpg);
+.featuresPage {
+  background-image: url(/img/features.jpg);
   background-size: cover;
   background-position: center;
   min-height: 120vh;
@@ -15,14 +15,14 @@
   margin-top: 100px;
 }
 
-.list-menu {
+.listMenu {
   color: whitesmoke;
   margin-top: 20px;
   border-left: 2px solid;
   padding: 0 20px 0 30px;
 }
 
-.list-features {
+.listFeatures {
   padding: 10px 25px;
   font-size: 16px;
   line-height: 1.7;
@@ -31,7 +31,7 @@
   margin-bottom: 20px;
 }
 
-.list-features:before {
+.listFeatures:before {
   content: "";
   display: block;
   width: 20px;
@@ -44,22 +44,22 @@
   left: -40px;
 }
 
-.list-features h3 {
+.listFeatures h3 {
   color: orange;
   width: 50%;
 }
 
-.list-features p {
+.listFeatures p {
   color: whitesmoke;
   width: 50%;
 }
 
 @media (min-width: 992px) {
-  .list-features h3 {
+  .listFeatures h3 {
     width: 300px;
   }
 
-  .list-features p {
+  .listFeatures p {
     width: 300px;
   }
 }

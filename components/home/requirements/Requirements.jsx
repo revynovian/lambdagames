@@ -1,23 +1,27 @@
-import "./Requirements.css";
+import styles from "./Requirements.module.css";
 import React from "react";
 import { Table, Container, Row, Col } from "react-bootstrap";
 
 const Requirements = () => {
   return (
-    <div className="jumbotron jumbotron-fluid requirements-page">
+    <div className={styles.requirementsPage}>
       <Container>
         <Row>
           <Col lg={4}>
-            <h1 className="display-4">SYSTEM REQUIREMENTS</h1>
+            <h1 className="display-4 fw-normal" style={{ color: "whitesmoke", marginTop: "10px" }}>
+              SYSTEM REQUIREMENTS
+            </h1>
           </Col>
 
           <Col lg={8}>
-            <p className="lead">Can My Computer Run This Game?</p>
+            <p className="lead" style={{ color: "whitesmoke" }}>
+              Can My Computer Run This Game?
+            </p>
           </Col>
         </Row>
 
         <Row>
-          <Col lg={6} className="table-requrements">
+          <Col lg={6} className={styles.tableRequrements}>
             <Table responsive="sm" style={{ height: "20rem" }} className="mt-3">
               <tbody>
                 <tr>

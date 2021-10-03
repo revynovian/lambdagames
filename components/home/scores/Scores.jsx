@@ -1,20 +1,25 @@
-import "./Scores.css";
+import styles from "./Scores.module.css";
 import React from "react";
-import profile1 from "../../../assets/people-1.jpg";
-import profile2 from "../../../assets/people-2.jpg";
-import profile3 from "../../../assets/people-3.jpg";
-import twitter from "../../../assets/twitter.svg";
-import { Card, Container, Row, Col, Image, Button } from "react-bootstrap";
+// import profile1 from "/img/people-1";
+// import profile2 from "/img/people-1";
+// import profile3 from "/img/people-1";
+// import twitter from "/img/twitter.svg";
+import { Card, Container, Row, Col, Button, Image } from "react-bootstrap";
+// import Image from "next/image";
 
 const Scores = () => {
   return (
-    <div className="jumbotron jumbotron-fluid score-page">
+    <div className={styles.scorePage}>
       <Container>
         <Row>
           <Col lg={6}>
-            <h1 className="display-4">TOP SCORES</h1>
+            <h1 className="display-4 fw-normal" style={{ color: "whitesmoke", marginTop: "50px" }}>
+              TOP SCORES
+            </h1>
 
-            <p className="lead">This top score from various games provide on this platform</p>
+            <p className="lead" style={{ color: "whitesmoke", marginTop: "10px" }}>
+              This top score from various games provide on this platform
+            </p>
             <Button className="btn btn-warning btn-lg ps-5 pe-5" href="#home">
               See More
             </Button>
@@ -23,10 +28,10 @@ const Scores = () => {
           <Col lg={6} className="mt-5">
             <Row className="card-main mb-3">
               <Col className="d-flex justify-content-end">
-                <Card className="card text-white p-1 card-custom" style={{ width: "30rem", backgroundColor: "#1A1C1D" }}>
+                <Card className={styles.cardCustom} style={{ width: "30rem", backgroundColor: "#1A1C1D" }}>
                   <Card.Body>
-                    <Col className="circle--bg">
-                      <Image src={profile1} className="avatar rounded-circle" />
+                    <Col className={styles.circleBg} style={{ float: "left" }}>
+                      <Image src={"/img/people-1.jpg"} alt="profile" width={70} height={70} className={styles.avatar} />
                     </Col>
 
                     <Col lg={6} className="ms-3 mt-2 float-start">
@@ -35,13 +40,11 @@ const Scores = () => {
                     </Col>
 
                     <Col className="ms-3 mt-2">
-                      <a href="#home">
-                        <Image src={twitter} style={{ float: "right" }} />
-                      </a>
+                      <a href="#home">{/* <Image src={twitter} alt="twiiter" style={{ float: "right" }} /> */}</a>
                     </Col>
 
                     <Col className="mt-5">
-                      <Card.Text className="fs-5">"One of my gaming highlights of the year."</Card.Text>
+                      <Card.Text className="fs-5">“One of my gaming highlights of the year.“</Card.Text>
                       <Card.Text className="text-muted fs-6">18 October 2018</Card.Text>
                     </Col>
                   </Card.Body>
@@ -51,10 +54,10 @@ const Scores = () => {
 
             <Row className="card-main mb-3">
               <Col className="d-flex">
-                <Card className="text-white p-1 card-custom" style={{ width: "30rem", backgroundColor: "#1A1C1D" }}>
+                <Card className={styles.cardCustom} style={{ width: "30rem", backgroundColor: "#1A1C1D" }}>
                   <Card.Body>
-                    <Col className="circle--bg">
-                      <Image src={profile2} className="avatar rounded-circle" />
+                    <Col className={styles.circleBg} style={{ float: "left" }}>
+                      <Image src={"/img/people-2.jpg"} alt="profile" width={70} height={70} className={styles.avatar} />
                     </Col>
 
                     <Col lg={6} className="ms-3 mt-2 float-start">
@@ -63,9 +66,7 @@ const Scores = () => {
                     </Col>
 
                     <Col className="ms-3 mt-2">
-                      <a href="#home">
-                        <Image src={twitter} className="float-end" />
-                      </a>
+                      <a href="#home">{/* <Image src={twitter} alt="twiiter" className="float-end" /> */}</a>
                     </Col>
 
                     <Col className="mt-5">
@@ -79,10 +80,10 @@ const Scores = () => {
 
             <Row className="card-main">
               <Col className="d-flex justify-content-end">
-                <Card className="text-white p-1 card-custom" style={{ width: "30rem", backgroundColor: "#1A1C1D" }}>
+                <Card className={styles.cardCustom} style={{ width: "30rem", backgroundColor: "#1A1C1D" }}>
                   <Card.Body>
-                    <Col className="circle--bg">
-                      <Image src={profile3} className="avatar rounded-circle" />
+                    <Col className={styles.circleBg} style={{ float: "left" }}>
+                      <Image src={"/img/people-3.jpg"} alt="profile" width={70} height={70} className={styles.avatar} />
                     </Col>
 
                     <Col lg={6} className="ms-3 mt-2" style={{ float: "left" }}>
@@ -91,9 +92,7 @@ const Scores = () => {
                     </Col>
 
                     <Col className="ms-3 mt-2">
-                      <a href="#home">
-                        <Image src={twitter} style={{ float: "right" }} />
-                      </a>
+                      <a href="#home">{/* <Image src={twitter} alt="twiiter" style={{ float: "right" }} /> */}</a>
                     </Col>
 
                     <Col className="mt-5">

@@ -9,8 +9,8 @@ import { FiHexagon } from "react-icons/fi";
 // Import context
 import { myAuthContext } from "../../context/authContext";
 
-const Header = ({ isAuthenticated , isAdmin}) => {
-  const { logout } = useContext(myAuthContext);
+const Header = () => {
+  const { logout, isAuthenticated , isAdmin } = useContext(myAuthContext);
 
   // bootstrap modal
   const [show, setShow] = useState(false);
@@ -39,7 +39,7 @@ const Header = ({ isAuthenticated , isAdmin}) => {
               </Nav.Link>
                 {!isAdmin && (<Nav.Link  as={Link} href="/dashboard">Dashboard
                 </Nav.Link>)}
-                {isAdmin && (<Nav.Link  as={Link} href="/admin/dashboard">
+                {isAdmin && (<Nav.Link  as={Link} href="/dashboard/admin">
                   Dashboard
                 </Nav.Link>)}
               <Nav.Link as={Link} href="/about">

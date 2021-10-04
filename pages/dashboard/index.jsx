@@ -11,38 +11,54 @@ import GameCards from "../../components/dashboard/Gamecard"
 // import userCoverImgHolder from "../../public/img/sample-cover.png"
 // import userImgHolder from "../../public/img/sample-ava.png"
 
-// This gets called on every request
-export async function getServerSideProps() {
+import { myAuthContext } from "../../context/authContext";
+
+// / This gets called on every request
+export async function getServerSideProps({req}) {
   // url constant
-  const userID = 1;
-  const accessToken = "";
-  const API_BASE_URL = "http://localhost:3000";
-  const url = `${API_BASE_URL}/user/${userID}`;
-  const urlGames = API_BASE_URL+"/user/games/";
-  // const urlUpdateImage = `${API_BASE_URL}/user/update/image/${userID}`;
+    
 
-  // Fetch data from external API
+    const userID = req.cookies.userID;
+    const accessToken = req.cookies.token;
 
-  const {data : playerData} = await Axios.get(url, {
+    const API_BASE_URL = "http://localhost:3000";
+    const url = `${API_BASE_URL}/user/${userID}`;
+    const urlGames = API_BASE_URL+"/user/games/";
+    // const urlUpdateImage = `${API_BASE_URL}/user/update/image/${userID}`;
+  
+    // Fetch data from external API
+    if (!accessToken) {
+      return {
+        redirect: {
+          destination: '/login',
+          permanent: false,
+        },
+      }
+    }
+
+    const {data : playerData} = await Axios.get(url, {
+        headers: { Authorization: accessToken },
+      })
+    
+    const {data : gamesData} = await Axios.get(urlGames, {
       headers: { Authorization: accessToken },
     })
-  
-  const {data : gamesData} = await Axios.get(urlGames, {
-    headers: { Authorization: accessToken },
-  })
-    // Pass data to the page via props
+      // Pass data to the page via props
+      
     
-  return { 
-    props: { 
-      player : playerData.message,
-      gameList : gamesData.message
-    } 
-  }
+
+    return { 
+      props: { 
+        player : playerData.message,
+        gameList : gamesData.message
+      } 
+    }
+    
 }
 
 
 const Dashboard = ({player, gameList}) => {
-  
+ 
 
   // const [isLoading, setIsLoading] = useState(false);
   const urlImg = player.User_Detail.profile_url;
@@ -89,33 +105,33 @@ const Dashboard = ({player, gameList}) => {
   const [previewPhoto, setpreviewPhoto] = useState()
   const [previewPhotoCover, setpreviewPhotoCover] = useState()
 
-//   useEffect(() => {
-//       if (!photoFile) {
-//           setpreviewPhoto(undefined)
-//           return
-//       }
-//       const objectUrl = URL.createObjectURL(photoFile)
-//       setpreviewPhoto(objectUrl)
-//       // free memory when ever this component is unmounted
-//       return () => {
-//         URL.revokeObjectURL(objectUrl)  
-//       }
+  useEffect(() => {
+      if (!photoFile) {
+          setpreviewPhoto(undefined)
+          return
+      }
+      const objectUrl = URL.createObjectURL(photoFile)
+      setpreviewPhoto(objectUrl)
+      // free memory when ever this component is unmounted
+      return () => {
+        URL.revokeObjectURL(objectUrl)  
+      }
 
-//   }, [photoFile])
+  }, [photoFile])
 
-//   useEffect(() => {
-//     if (!coverFile) {
-//         setpreviewPhotoCover(undefined)
-//         return
-//     }
-//     const objectUrl2 = URL.createObjectURL(coverFile)
-//     setpreviewPhotoCover(objectUrl2)
-//     // free memory when ever this component is unmounted
-//     return () => {
-//       URL.revokeObjectURL(objectUrl2)  
-//     }
+  useEffect(() => {
+    if (!coverFile) {
+        setpreviewPhotoCover(undefined)
+        return
+    }
+    const objectUrl2 = URL.createObjectURL(coverFile)
+    setpreviewPhotoCover(objectUrl2)
+    // free memory when ever this component is unmounted
+    return () => {
+      URL.revokeObjectURL(objectUrl2)  
+    }
 
-//   }, [coverFile])
+  }, [coverFile])
 
 
   // select file to upload

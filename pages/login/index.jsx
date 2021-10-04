@@ -6,15 +6,18 @@ import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 
 import Link from "next/link"
 // import { Link, useHistory } from "react-router-dom";
-// import Axios from "axios";
+import { useRouter } from 'next/router'
+import Axios from "axios";
 // Import context
-// import { myAuthContext } from "../../context/authContext";
+import { myAuthContext } from "../../context/authContext";
 
 const Login = () => {
   // let history = useHistory();
-  // const { login } = useContext(myAuthContext);
+  const { login } = useContext(myAuthContext);
 
-  // const url = "http://localhost:3000/user/login";
+  const router = useRouter();
+
+  const url = "http://localhost:3000/user/login";
   const [usernameOrEmail, setUsernameOrEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -27,27 +30,27 @@ const Login = () => {
   const handlerLogin = (e) => {
     e.preventDefault();
     setisLoading(true);
-    // Axios.post(url, {
-    //   usernameOrEmail: usernameOrEmail,
-    //   password: password,
-    // })
-    //   .then(async (res) => {
-    //     setisLoading(false);
-    //     await login(res.data.accessToken, res.data.id, res.data.role);
-    //     if (res.data.role === "admin") {
-    //       history.push("/admin/dashboard");
-    //     } else {
-    //       history.push("/dashboard");
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     if (error.response.status === 401 || error.response.status === 400 || error.response.status === 404) {
-    //       setError(error.response.data);
-    //     } else {
-    //       setError("Something went wrong. Please try again later");
-    //     }
-    //     setisLoading(false);
-    //   });
+    Axios.post(url, {
+      usernameOrEmail: usernameOrEmail,
+      password: password,
+    })
+      .then(async (res) => {
+        setisLoading(false);
+        await login(res.data.accessToken, res.data.id, res.data.role);
+        if (res.data.role === "admin") {
+          router.push("dashboard/admin");
+        } else {
+          router.push("dashboard");
+        }
+      })
+      .catch((error) => {
+        if (error.response.status === 401 || error.response.status === 400 || error.response.status === 404) {
+          setError(error.response.data);
+        } else {
+          setError("Something went wrong. Please try again later");
+        }
+        setisLoading(false);
+      });
   };
 
   return (

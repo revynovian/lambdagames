@@ -1,4 +1,4 @@
-.gameeCard {
+.gameCard {
   position: relative;
   z-index: 1;
   border-top: 5px solid var(--clr-primary);
@@ -22,13 +22,14 @@
   border-radius: 15px;
 }
 
-.customHeader h2{
+.gameCard h2{
   text-transform: uppercase;
   text-shadow: 2px 2px 5px var(--clr-secondary);
   font-weight: bold;
 }
-.gameDetail_button button{
+.gameDetail_button button,
+.gameDetail_button a{
   padding: 10px 15px;
-  border-radius: 20px ;
+  border-radius: 20px;
 }
 

@@ -1,4 +1,4 @@
-import styles from "./Gamerps.module.css";
+import styles from "./GameXO.module.css";
 import React, { useState, useEffect } from "react";
 
 import { Container, Row, Col, Image, Modal, Button } from "react-bootstrap";
@@ -9,87 +9,99 @@ import Link  from "next/link";
 import Save from "../../../../components/games/SaveScore";
 import Cookies from "js-cookie";
 
-const GameRPS = () => {
-  // rps game logic
-  const [playerHands, setPlayerHands] = useState(null);
-  const [cpuHands, setCpuHands] = useState(null);
+
+import { FaPlusCircle } from "react-icons/fa";
+
+const GameXO = () => {
+  // tictactoe game logic
+
   const [playerScore, setPlayerScore] = useState(0);
   const [cpuScore, setCpuScore] = useState(0);
-  const [result, setResult] = useState(null);
   // contoh agregat skor
   // fetch from database
   const [newScore, setScore] = useState(null);
   const [oldScore, setOldScore] = useState(null);
-  const [color , setColor] = useState("")
 
-  const CHOICES = [
-    {
-      choice: "rock",
-      beats: "scissor",
-      losesTo: "paper",
-    },
-    {
-      choice: "paper",
-      beats: "rock",
-      losesTo: "scissor",
-    },
-    {
-      choice: "scissor",
-      beats: "paper",
-      losesTo: "rock",
-    },
-  ];
+  
+  const [record, setRecord] = useState(new Array(9).fill(null))
+  const [winner, setWinner] = useState("")
+  const Rules =[
+    // horizontal
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    // vertical
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    // diagonal
+    [0, 4, 8],
+    [2, 4, 6]
+  ]
 
-  const cpuPick = () => {
-    return CHOICES[Math.floor(Math.random() * CHOICES.length)].choice;
-  };
+  // GAME is not working yet 
 
-  const handleClick = (playerPick, cpuPick) => {
-    setPlayerHands(playerPick);
-    setCpuHands(cpuPick);
-    const getResult = compareResult(playerPick, cpuPick);
-    setResult(getResult);
-    // console.log(getResult);
-  };
-  const compareResult = (player, cpu) => {
-    let item = 0;
-    for (item in CHOICES) {
-      if (cpu === CHOICES[item].choice) {
-        if (CHOICES[item].losesTo.includes(player)) {
-          setPlayerScore(playerScore + 1);
-          // calculate score(simple scoring => win + 10 pts)
-          setScore(newScore + 10);
-          setColor("#A0E77D")
-          return "YOU WIN";
-        } else if (CHOICES[item].beats.includes(player)) {
-          setCpuScore(cpuScore + 1);
-          // calculate score(simple scoring => lose - 5 pts)
-          setScore(newScore - 5);
-          setColor("#EF8677")
-          return "YOU LOSE";
-        } else {
-          setColor("#82B6D9")
-          return "DRAW";
-        }
-      }
-    }
-  };
+  const handleChoice = (num) => {
+  // const linesThatAre = (a,b,c) => {
+  //   return Rules.filter(squareIndexes => {
+  //     const squareValues = squareIndexes.map(index => record[index]);
+  //     return JSON.stringify([a,b,c].sort()) === JSON.stringify(squareValues.sort());
+  //   });
+  // };
+  // const playerWon = linesThatAre('x', 'x', 'x').length > 0;
+  // const computerWon = linesThatAre('o', 'o', 'o').length > 0;
+  // if (playerWon) {
+  //   setWinner('x');
+  //   setPlayerScore(playerScore + 1)
+  //   setScore(newScore + 10)
+  //   alert("you win!")
+  // }
+  // if (computerWon) {
+  //   setWinner('o');
+  //   setCpuScore(cpuScore + 1)
+  //   alert("you lose")
+  // }
 
-  const refreshClick = () => {
-    // reset score
-    setPlayerScore(0);
-    setCpuScore(0);
-    setPlayerHands(null);
-    setCpuHands(null);
-    setResult(null);
-  };
+  const isPlayerTurn = record.filter((e) => e !== null).length % 2 === 0;
+  if(isPlayerTurn) {
+    let squares = record
+    squares[num]= "x"
+    setRecord([...squares])
+  }
+  
+  const emptyIndex = record
+  .map((e,i)=> e === null ? i : null)
+  .filter((val) => val !== null);
+  
+  const randomIndex = emptyIndex[Math.ceil(Math.random() * emptyIndex.length)];
+  
+  // console.log(isCpuTurn)
+  const computerAt = index => {
+    let squares = record
+    squares[index]= "o";
+    setRecord([...squares])
+  }
+  
+  const isCpuTurn = record.filter((e) => e !== null).length % 2 === 1;
+  
+  if(isCpuTurn) {
+    computerAt(randomIndex)
+  }
+}
+
+const resetHandler = () => {
+  setRecord(new Array(9).fill(null))
+  setWinner("")
+  setPlayerScore(0)
+  setCpuScore(0)
+}
+
 
   // fetch user data
   const [player, setPlayer] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [gameID, setGameID] = useState("");
-  // const userID = Cookies.get("userID");
-  const userID = 1;
+  const userID = Cookies.get("userID");
   const accessToken = Cookies.get("token");
   const url = `http://localhost:3000/user/${userID}`;
 
@@ -132,7 +144,21 @@ const GameRPS = () => {
     setIsLoading(false);
   }, [url, accessToken, sending]);
 
+      
+  // game section component
+  const Cells =  ({num}) => {
 
+      let selected = ""
+      if (record[num] === "x") selected = styles.playerX;
+      if (record[num] === "o") selected = styles.playerO;
+      
+      return (
+        
+      <td>
+        <div className={`${selected} ${styles.select}`} onClick={() => handleChoice(num)}></div>
+      </td>)
+  }
+  
   return (
     <div className={styles.gamePage}>
       <Container className="d-flex vh-100 w-75 flex-column justify-content-center pt-5" >
@@ -142,54 +168,71 @@ const GameRPS = () => {
         <Row className={`${styles.gameHeader_custom} align-items-center`}>
           <Col md={1} className="text-end">
             <Link href="/games/rps" passHref>
-              <Image src="/img/rps/logo.png" style={{ width: "50px", height: "50px" }} className={styles.logoButton} alt="logo"/>
+              <Image src="/img/xo/xologo.png" style={{ width: "50px", height: "50px" }} className={styles.logoButton} alt="logo"/>
             </Link>
           </Col>
           <Col  className="text-start">
             <h2 className=" fw-bold" style={{ color: "#F9B23D" }}>
-              ROCK PAPER SCISSORS
+              TIC TAC TOE
             </h2>
           </Col>
           <Col md={1} className="text-end">
-            <Image src="/img/rps/goldcoin.png" style={{ width: "50px", height: "50px" }} alt="score"/>
+            <Image src="/img/xo/xocoin.png" style={{ width: "50px", height: "50px" }} alt="score"/>
           </Col>
           <Col md={3} className="text-start game-header_icon ">
             <h1 className=""> {newScore} points</h1>
           </Col>
           <Col md={1} className={styles.rulesButton}>
-            <Image src="/img/rps/info.png" style={{ width: "50px", height: "50px" }} onClick={handleShow} alt="rules"/>
+            <Image src="/img/xo/xorules.png" style={{ width: "50px", height: "50px" }} onClick={handleShow} alt="rules"/>
           </Col>
         </Row>
         <hr />
 
-        {/* 2.Game section */}
-        <Row className={`justify-content-center text-center my-4 ${styles.gameSection_custom}`}>
-          {/* player section */}
-          <Col sm={4} className={`d-flex flex-column align-items-center  ${styles.gameSection_player}`}>
+        <Row >
+          <Col className="text-end">
             <h1 style={{ textTransform: "capitalize" }}>{isLoading ? player.username : "player"}</h1>
-            <Image src="/img/rps/batu.png" alt="batu" id="batu" style={{ width: "90px", height: "90px" }} onClick={() => handleClick("rock", cpuPick())} className={playerHands === "rock" ? `${styles.bgSelected}` : ""} />
-            <Image src="/img/rps/kertas.png" alt="kertas" id="kertas" style={{ width: "90px", height: "90px" }} onClick={() => handleClick("paper", cpuPick())} className={playerHands === "paper" ? `${styles.bgSelected}` : ""} />
-            <Image src="/img/rps/gunting.png" alt="gunting" id="gunting" style={{ width: "90px", height: "90px" }} onClick={() => handleClick("scissor", cpuPick())} className={playerHands === "scissor" ? `${styles.bgSelected}` : ""} />
           </Col>
-           {/* result section */}
-          <Col sm={2} className="d-flex flex-column align-items-center justify-content-between">
+          <Col className="text-center">
             <h1 style={{ fontSize: "4rem" }}>
               {playerScore}:{cpuScore}
             </h1>
-            <h1 className={`${styles.bgSelected} ${styles.bgDefault}`} style={{ color: `${color}`, fontSize: "2rem" }}>
-              {result ? result : "VS"}
-            </h1>
-            <Image src="/img/rps/refresh.png" alt="refresh" id="refresh" style={{ width: "90px", height: "90px" }} onClick={() => refreshClick()} className={styles.resetButton} />
           </Col>
-          {/* cpu section */}
-          <Col sm={4} className="d-flex flex-column align-items-center">
+          <Col className="text-start">
             <h1>Computer</h1>
-            <Image src="/img/rps/batu.png" alt="batu-cpu" id="batu-cpu" style={{ width: "90px", height: "90px" }} className={cpuHands === "rock" ? `${styles.bgSelected}` : ""} />
-            <Image src="/img/rps/kertas.png" alt="kertas-cpu" id="kertas-cpu" style={{ width: "90px", height: "90px" }} className={cpuHands === "paper" ? `${styles.bgSelected}` : ""} />
-            <Image src="/img/rps/gunting.png" alt="gunting-cpu" id="gunting-cpu" style={{ width: "90px", height: "90px" }} className={cpuHands === "scissor" ? `${styles.bgSelected}` : ""} />
           </Col>
         </Row>
-
+        {/* 2.Game section */}
+        <Row className="text-center my-2">
+          <Col md={8} className="d-flex justify-content-end mb-3 " >
+              <table >
+                <tbody>
+                  <tr style={{borderBottom : "2px solid white"}}> 
+                    <Cells num={0} />
+                    <Cells num={1} />
+                    <Cells num={2} />   
+                  </tr>
+                  <tr style={{borderBottom : "2px solid white"}}>
+                    <Cells num={3}/>
+                    <Cells num={4}/>
+                    <Cells num={5}/>   
+                  </tr>
+                  <tr>
+                    <Cells num={6} />
+                    <Cells num={7}/>
+                    <Cells num={8}/>   
+                  </tr>
+                </tbody>
+              </table>
+                
+          </Col>
+          <Col>
+            <h1>Score</h1>
+            <Button onClick={()=> setScore(newScore + 10)} variant="success" ><FaPlusCircle style={{marginBottom: "4px"}}/></Button>
+            <Button onClick={resetHandler} variant="success">Reset</Button>
+            <h1>{winner}</h1>
+          </Col>
+        </Row>
+            
           {/* 3. Save button */}
         <Row>
           <Col className="d-flex flex-column align-items-center mb-3 custom-button">
@@ -230,4 +273,4 @@ const GameRPS = () => {
   );
 };
 
-export default GameRPS;
+export default GameXO;

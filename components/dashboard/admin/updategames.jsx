@@ -1,10 +1,10 @@
-import styles from "../Gamecard.module.css"
 import React , {useState } from "react";
 import {Button, Modal,Row, Col, Alert } from "react-bootstrap";
 
 import { FaTimes } from "react-icons/fa";
 
 import Axios from "axios";
+import Cookies from "js-cookie";
 
 const UpdateGames = (
   {gameID ,
@@ -17,7 +17,7 @@ const UpdateGames = (
   onCloseModal,
   isSending}) => {
 
-  const accessToken = localStorage.getItem('token');
+  const accessToken = Cookies.get('token');
   const url = `http://localhost:3000/admin/games/update/${gameID}`;
   
   const [updateGame, setUpdateGame] = useState({

@@ -1,14 +1,14 @@
 import React from "react";
 import { Container,  Spinner } from "react-bootstrap";
 
-import "./game-board.css"
+import styles from "./Leaderboard.module.css"
 const LeaderBoard = ({isLoad,dataPlayers}) => {
 
   return (
   <>
     {/* leaderboard table section*/}
       <Container className="text-white">
-        <table className="mb-5 mt-3" >
+        <table className={`mb-5 mt-3 ${styles.customTable}`}>
           <thead style={{color: "#FFCA2C"}}>
           <tr>
             <th style={{width : "8%"}}>Rank</th>

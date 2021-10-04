@@ -4,10 +4,11 @@ import { Row, Col, Form, Button, Modal, Alert} from "react-bootstrap";
 
 import { FaTimes } from "react-icons/fa";
 import Axios from "axios";
+import Cookies from "js-cookie";
 
 
 const Save = ({ dataScoreOld, dataScore, gameID , userID, IsModalOpened, onCloseModal, isSending }) => {
-  const accessToken = localStorage.getItem("token");
+  const accessToken = Cookies.get("token");
   const urlUpdate = `http://localhost:3000/user/score/`;
   // Alert
   const [success, setSuccess] = useState(false);
@@ -30,7 +31,7 @@ const Save = ({ dataScoreOld, dataScore, gameID , userID, IsModalOpened, onClose
         isSending(true)
       })
       .catch((error) => {
-        if (error.response.status === 401 || error.response.status === 400) {
+        if (error.response.status === 401 || error.response.status === 400 || error.response.status === 404) {
           // setError(error.response.data);
         } else {
           // setError("Something went wrong. Please try again later");

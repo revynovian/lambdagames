@@ -3,11 +3,12 @@ import React from "react";
 import {Button, Modal, } from "react-bootstrap";
 
 import Axios from "axios";
+import Cookies from "js-cookie";
 
 const DeleteGames = ({gameID, IsModalOpened, onCloseModal, isSending}) => {
   
 
-  const accessToken = localStorage.getItem('token');
+  const accessToken = Cookies.get('token');
   const url = `http://localhost:3000/admin/games/delete/${gameID}`;
   
   // delete game

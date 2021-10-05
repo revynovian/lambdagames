@@ -1,15 +1,18 @@
 import '../styles/globals.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import Layout from '../components/layout/layout'
-import AppContext from "../context/authContext";
+
+import store from '../store'
+import { Provider } from 'react-redux';
+
 
 function MyApp({ Component, pageProps }) {
   return (
-    <AppContext>
+    <Provider store={store}>
       <Layout>
         <Component {...pageProps} /> 
       </Layout>
-    </AppContext>
+    </Provider>
   )
 }
 

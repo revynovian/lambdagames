@@ -7,10 +7,12 @@ import { FaSignOutAlt } from 'react-icons/fa';
 import { FiHexagon } from "react-icons/fi";
 
 // Import context
-import { myAuthContext } from "../../context/authContext";
+// import { myAuthContext } from "../../context/authContext";
 
 const Header = () => {
-  const { logout, isAuthenticated , isAdmin } = useContext(myAuthContext);
+  // const { logout, isAuthenticated , isAdmin } = useContext(myAuthContext);
+  const isAuthenticated = false ;
+  const isAdmin = false;
 
   // bootstrap modal
   const [show, setShow] = useState(false);

@@ -5,15 +5,19 @@ import { FaEye , FaEyeSlash } from 'react-icons/fa';
 import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 
 import Link from "next/link"
-// import { Link, useHistory } from "react-router-dom";
 import { useRouter } from 'next/router'
 import Axios from "axios";
-// Import context
-import { myAuthContext } from "../../context/authContext";
+
+// import hooks
+import { useDispatch, useSelector } from 'react-redux'
+// import actions
+import { login, logout } from '../../store/slices/user'
 
 const Login = () => {
-  // let history = useHistory();
-  const { login } = useContext(myAuthContext);
+
+  const User = useSelector((state) => state.auth.isAuthenticated)
+  // get dispatch function using hook
+  const dispatch = useDispatch()
 
   const router = useRouter();
 
@@ -34,17 +38,24 @@ const Login = () => {
       usernameOrEmail: usernameOrEmail,
       password: password,
     })
-      .then(async (res) => {
+      .then((res) => {
         setisLoading(false);
-        await login(res.data.accessToken, res.data.id, res.data.role);
-        if (res.data.role === "admin") {
-          router.push("dashboard/admin");
-        } else {
-          router.push("dashboard");
-        }
+
+        const accessToken = res.data.accessToken
+        const id = res.data.id
+        const role = res.data.role
+
+        dispatch(login({accessToken, id, role}));
+        console.log(User)
+
+        // if (user.role === "admin") {
+        //   router.push("dashboard/admin");
+        // } else {
+        //   router.push("dashboard");
+        // }
       })
       .catch((error) => {
-        if (error.response.status === 401 || error.response.status === 400 || error.response.status === 404) {
+        if (error.response) {
           setError(error.response.data);
         } else {
           setError("Something went wrong. Please try again later");

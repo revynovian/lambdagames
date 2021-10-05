@@ -6,23 +6,27 @@ import { Navbar, Nav, Container, Modal, Button } from "react-bootstrap";
 import { FaSignOutAlt } from 'react-icons/fa';
 import { FiHexagon } from "react-icons/fi";
 
-// Import context
-// import { myAuthContext } from "../../context/authContext";
-
+import { useSelector, useDispatch } from 'react-redux';
+import { logout } from '../../store/slices/user';
+import Cookies from 'js-cookie';
 const Header = () => {
-  // const { logout, isAuthenticated , isAdmin } = useContext(myAuthContext);
-  const isAuthenticated = false ;
-  const isAdmin = false;
+  const dispatch = useDispatch()
+
+  const isAuthenticated = useSelector((state => state.auth.isAuthenticated))
+  const role = useSelector((state => state.auth.user.role))
+  const isAdmin  = (role === "admin" ? true : false)
 
   // bootstrap modal
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const handlerLogout = async (e) => {
-    e.preventDefault()
+  const handlerLogout = (e) => {
     setShow(false);
-    await logout();
+    dispatch(logout());
+    Cookies.remove("token");
+    Cookies.remove("userID");
+    
   };
 
   return (

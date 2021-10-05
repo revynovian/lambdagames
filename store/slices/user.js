@@ -27,7 +27,12 @@ export const authSlice = createSlice({
       } 
     },
     logout: (state) => {
-      state.value -= 1
+      state.isAuthenticated = false
+      state.user = {
+        role: "",
+        userid : "",
+        accessToken : ""
+      } 
     }
   },
 })

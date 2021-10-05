@@ -8,16 +8,10 @@ import { FaCalendarAlt, FaEdit, FaMapMarkerAlt, FaImage, FaCubes } from 'react-i
 
 import GameCards from "../../components/dashboard/Gamecard"
 
-// import userCoverImgHolder from "../../public/img/sample-cover.png"
-// import userImgHolder from "../../public/img/sample-ava.png"
-
-import { myAuthContext } from "../../context/authContext";
 
 // / This gets called on every request
 export async function getServerSideProps({req}) {
   // url constant
-    
-
     const userID = req.cookies.userID;
     const accessToken = req.cookies.token;
 

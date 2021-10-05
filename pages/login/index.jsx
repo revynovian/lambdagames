@@ -7,7 +7,7 @@ import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 import Link from "next/link"
 import { useRouter } from 'next/router'
 import Axios from "axios";
-
+import Cookies from "js-cookie";
 // import hooks
 import { useDispatch, useSelector } from 'react-redux'
 // import actions
@@ -44,15 +44,17 @@ const Login = () => {
         const accessToken = res.data.accessToken
         const id = res.data.id
         const role = res.data.role
-
         dispatch(login({accessToken, id, role}));
+        
         console.log(User)
+        Cookies.set("token",accessToken)
+        Cookies.set("userID", id)
 
-        // if (user.role === "admin") {
-        //   router.push("dashboard/admin");
-        // } else {
-        //   router.push("dashboard");
-        // }
+        if (role === "admin") {
+          router.push("dashboard/admin");
+        } else {
+          router.push("dashboard");
+        }
       })
       .catch((error) => {
         if (error.response) {

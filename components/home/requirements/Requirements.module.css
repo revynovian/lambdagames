@@ -1,31 +1,31 @@
-.requirements-page {
-  background-image: url(../../../assets/requirements.png);
+.requirementsPage {
+  background-image: url(/img/requirements.png);
   background-size: cover;
   background-position: center;
   min-height: 100vh;
 }
 
-.requirements-page .display-4 {
+.requirementsPage .display-4 {
   color: whitesmoke;
   font-weight: 500;
   margin-top: 20px;
 }
 
-.requirements-page .lead {
+.requirementsPage .lead {
   color: whitesmoke;
 }
 
-.table-requrements {
+.tableRequrements {
   table-layout: fixed;
   border-collapse: collapse;
   margin-top: 15px;
 }
 
-.table-requrements span {
+.tableRequrements span {
   color: orange;
 }
 
-.table-requrements td {
+.tableRequrements td {
   border: 1px solid rgb(220, 220, 220, 0.3);
   text-align: left;
   color: whitesmoke;

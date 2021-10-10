@@ -1,18 +1,22 @@
 import styles from './Profile.module.css';
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Button, Form, Alert, Modal } from 'react-bootstrap';
-// import Axios from 'axios';
-// import { useHistory } from "react-router-dom";
-
-// Import context
-// import { myAuthContext } from "../../context/authContext";
+import Axios from 'axios';
+import { useRouter } from 'next/router'
+import { useDispatch } from 'react-redux';
+import { logout } from '../../../store/slices/user';
+import Cookies from 'js-cookie';
 
 const Profile = () => {
-  // const userID = localStorage.getItem('userID');
-  // const accessToken = localStorage.getItem('token');
-  // const url = `http://localhost:3000/user/${userID}`;
-  // const urlUpdate = `http://localhost:3000/user/update/${userID}`;
-  // const urlDelete = `http://localhost:3000/user/delete/${userID}`;
+  const dispatch = useDispatch()
+
+  const userID = Cookies.get("userID");
+  const accessToken = Cookies.get("token");
+
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+  const url = `${apiUrl}user/${userID}`;
+  const urlUpdate = `${apiUrl}user/update/?id=${userID}`;
+  const urlDelete = `${apiUrl}user/delete/?id=${userID}`;
 
   // player-update form
   const [player, setPlayer] = useState({});
@@ -30,20 +34,20 @@ const Profile = () => {
   const handleShow = () => setShow(true);
 
   // retrieving user data by id
-  // useEffect(() => {
-  //   Axios.get(url, {
-  //     headers: { Authorization: accessToken },
-  //   })
-  //     .then((res) => {
-  //       const basicInfo = res.data.message;
-  //       const detailInfo = res.data.message.User_Detail;
-  //       setPlayer(basicInfo);
-  //       setPlayerDetail(detailInfo);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }, [url, accessToken]);
+  useEffect(() => {
+    Axios.get(url, {
+      headers: { Authorization: accessToken },
+    })
+      .then((res) => {
+        const basicInfo = res.data.message;
+        const detailInfo = res.data.message.User_Detail;
+        setPlayer(basicInfo);
+        setPlayerDetail(detailInfo);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [url, accessToken]);
 
   // submit data to api using PUT method
   const handleUpdate = (e) => {
@@ -59,22 +63,22 @@ const Profile = () => {
       bio: playerDetail.bio,
     };
 
-    // console.log(body);
+    console.log(body);
 
-    // Axios.put(urlUpdate, body, {
-    //   headers: { Authorization: accessToken },
-    // })
-    //   .then((res) => {
-    //     // console.log(res.data.message);
-    //     setSuccess(true);
-    //   })
-    //   .catch((error) => {
-    //     if (error.response.status === 401 || error.response.status === 400) {
-    //       setError(error.response.data);
-    //     } else {
-    //       setError('Something went wrong. Please try again later');
-    //     }
-    //   });
+    Axios.put(urlUpdate, body, {
+      headers: { Authorization: accessToken },
+    })
+      .then((res) => {
+        // console.log(res.data.message);
+        setSuccess(true);
+      })
+      .catch((error) => {
+        if (error.response) {
+          setError(error.response.data);
+        } else {
+          setError('Something went wrong. Please try again later');
+        }
+      });
   };
 
 
@@ -82,24 +86,26 @@ const Profile = () => {
   // let history = useHistory();
   // const { logout } = useContext(myAuthContext);
 
+  const router = useRouter();
+
   const handleDelete = (e) => {
     e.preventDefault();
     // console.log("deleted")
-    // Axios.delete(urlDelete, {
-    //   headers: { Authorization: accessToken },
-    // })
-    //   .then( async (res) => {
-    //     // console.log(res.data.message);
-    //     await logout();
-    //     history.push("/");
-    //   })
-    //   .catch((error) => {
-    //     if (error.response.status === 401 || error.response.status === 400) {
-    //       setError(error.response.data);
-    //     } else {
-    //       setError('Something went wrong. Please try again later');
-    //     }
-    //   });
+    Axios.delete(urlDelete, {
+      headers: { Authorization: accessToken },
+    })
+      .then( (res) => {
+        // console.log(res.data.message);
+        dispatch(logout());
+        router.push("/");
+      })
+      .catch((error) => {
+        if (error.response.status === 401 || error.response.status === 400) {
+          setError(error.response.data);
+        } else {
+          setError('Something went wrong. Please try again later');
+        }
+      });
     
   }
 

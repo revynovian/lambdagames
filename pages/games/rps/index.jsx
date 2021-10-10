@@ -1,5 +1,5 @@
 
-import React , { useEffect, useState } from "react";
+import React , { useState } from "react";
 import { Container, Row, Col, Alert } from "react-bootstrap";
 
 
@@ -7,61 +7,56 @@ import GameBoard from "../../../components/games/GameBoard";
 import LeaderBoard from "../../../components/games/Leaderboard";
 
 import { FaTrophy } from 'react-icons/fa';
-import styles from "../Games.module.css"
-import Cookies from "js-cookie";
+import styles from "../Games.module.css";
+
 import Axios from "axios";
 
 
-const RpsPage = () => {
-  const accessToken = Cookies.get("token");
-  const API_BASE_URL = "http://localhost:3000";
-  const url = API_BASE_URL+"/user/";
-  const urlGames = API_BASE_URL+"/user/games/";
-  const [gameList , setGameList] = useState([""])
-
-  const [Players, setPlayers] = useState([])
-  const [isLoading, setisLoading] = useState(false)
-
-  // fetch data all player
-  useEffect (() => {
-    Axios.get(url, {
-      headers: {Authorization : accessToken}
-    })
-    .then ( res => {
-      setisLoading(true)
-      const data = (res.data.message)
-      setPlayers(data)
-    })
-    .catch ( err => {
-      console.log(err)
-    });
-
-    Axios.get(urlGames, {
+// This gets called on every request
+export async function getServerSideProps({req}) {
+  // url constant
+  const accessToken = req.cookies.token;
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+  const url = `${apiUrl}user`;
+  const urlGames = `${apiUrl}user/games`;
+  
+  // redirect if user doesnt have token
+  if (!accessToken) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      },
+    }
+  }
+  // Fetch data from external API
+  const {data : playerData} = await Axios.get(url, {
       headers: { Authorization: accessToken },
     })
-      .then((res) => {
-        const gamelist = res.data.message;
-        console.log(gamelist)
-        setGameList(gamelist)
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  },[url,urlGames, accessToken]) 
   
+  const {data : gamesData} = await Axios.get(urlGames, {
+    headers: { Authorization: accessToken },
+  })
 
+  // Pass data to the page via props
+  return { 
+    props: { 
+      playerAll : playerData.message,
+      gameList : gamesData.message
+    } 
+  }
+  
+}
 
+const RpsPage = ({playerAll, gameList}) => {
+  const [isLoading, setisLoading] = useState(true)
   // sorting data to get rank
   // filter spesific data for leaderboard table
   // rps id = 1
+  const gameID = 1
+  const dataNew = []
 
-  const [ranked, setRanked] = useState([])
-  const [topPlayer, setTopPlayer] = useState("")
-
-  useEffect (() => {
-    const gameID = gameList[0].id
-    const dataNew = []
-    Players.forEach ((e) => {
+    playerAll.forEach((e) => {
     const username = e.username;
     const city = e.User_Detail.city;
     const score = e.User_Scores;
@@ -76,39 +71,40 @@ const RpsPage = () => {
         city,
         score : scorenew[0].score
       };
-      dataNew.push(tobeSort);
-      }
-    })
-    const rankedPlayers = dataNew.sort((a, b)=> (a.score < b.score) ? 1 : -1)
-    setRanked(rankedPlayers)
 
-    rankedPlayers.forEach((e,i) => {
+      dataNew.push(tobeSort)
+    }
+  })
+  
+  // sorted data
+  const rankedPlayers = dataNew.sort((a, b)=> (a.score < b.score) ? 1 : -1)
+  
+  // get top 1 player
+  let topPlayer = "";
+  rankedPlayers.forEach((e,i) => {
       if (i === 0) {
-        setTopPlayer(e.username)
+        topPlayer = e.username
       }
     })
   
-  }, [Players, gameList])
-  
-
-
 
   return (
     <div style={{ backgroundImage: 'url("/img/dark-honeycomb.png")', height: "100vh"}}>
       <Container className="py-5 custom-button"> 
         <Row>
           <Col>
+          {/* rps index is 0 */}
           <GameBoard 
-                gameName={gameList[0].game_name} 
-                gameDescription={gameList[0].description} 
-                gameCover={gameList[0].cover_url}  
-                gameLink={gameList[0].game_link} />
+            gameName={gameList[0].game_name} 
+            gameDescription={gameList[0].description} 
+            gameCover={gameList[0].cover_url}  
+            gameLink={gameList[0].game_link} />
           </Col>
         </Row>
         <Row>
           <h2 className="text-white">Leaderboard</h2>
           <Col md={9} className="d-flex">
-            <LeaderBoard isLoad={isLoading} dataPlayers={ranked}/>
+            <LeaderBoard isLoad={isLoading} dataPlayers={rankedPlayers}/>
           </Col>
           <Col md={2} className="text-center text-white mt-3">
               <Alert className={styles.alertCustom}>

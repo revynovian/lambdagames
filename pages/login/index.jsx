@@ -1,27 +1,25 @@
 import styles from "./Login.module.css";
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect } from "react";
 
 import { FaEye , FaEyeSlash } from 'react-icons/fa';
 import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 
 import Link from "next/link"
-import { useRouter } from 'next/router'
-import Axios from "axios";
-import Cookies from "js-cookie";
 // import hooks
 import { useDispatch, useSelector } from 'react-redux'
+import { useRouter } from 'next/router'
 // import actions
-import { login, logout } from '../../store/slices/user'
+import { loginAsync } from '../../store/slices/user'
 
 const Login = () => {
 
-  const User = useSelector((state) => state.auth.isAuthenticated)
+  // const User = useSelector((state) => state.auth.isAuthenticated)
+  const Role = useSelector((state) => state.auth.user.role)
   // get dispatch function using hook
   const dispatch = useDispatch()
 
   const router = useRouter();
 
-  const url = "http://localhost:3000/user/login";
   const [usernameOrEmail, setUsernameOrEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -33,38 +31,24 @@ const Login = () => {
   }
   const handlerLogin = (e) => {
     e.preventDefault();
-    setisLoading(true);
-    Axios.post(url, {
-      usernameOrEmail: usernameOrEmail,
-      password: password,
+    setisLoading(true)
+    dispatch(loginAsync({usernameOrEmail,password}))
+    .unwrap()
+    .then((res) => {
+      setisLoading(false)
+    }).catch ((err) => {
+      setError(err)
+      setisLoading(false)
     })
-      .then((res) => {
-        setisLoading(false);
-
-        const accessToken = res.data.accessToken
-        const id = res.data.id
-        const role = res.data.role
-        dispatch(login({accessToken, id, role}));
-        
-        console.log(User)
-        Cookies.set("token",accessToken)
-        Cookies.set("userID", id)
-
-        if (role === "admin") {
-          router.push("dashboard/admin");
-        } else {
-          router.push("dashboard");
-        }
-      })
-      .catch((error) => {
-        if (error.response) {
-          setError(error.response.data);
-        } else {
-          setError("Something went wrong. Please try again later");
-        }
-        setisLoading(false);
-      });
   };
+
+  useEffect (() => {
+    if (Role === "admin") {
+      router.push("dashboard/admin");
+    } else if (Role === "user") {
+      router.push("dashboard");
+    }
+  })
 
   return (
     <div>

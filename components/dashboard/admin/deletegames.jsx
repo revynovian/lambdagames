@@ -9,7 +9,7 @@ const DeleteGames = ({gameID, IsModalOpened, onCloseModal, isSending}) => {
   
 
   const accessToken = Cookies.get('token');
-  const url = `http://localhost:3000/admin/games/delete/${gameID}`;
+  const url = ` https://immense-sierra-85328.herokuapp.com/admin/games/delete/${gameID}`;
   
   // delete game
   const handleDelete = () => {

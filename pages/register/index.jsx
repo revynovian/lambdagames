@@ -8,7 +8,7 @@ import Link from "next/link";
 const Register = () => {
   const router = useRouter();
 
-  const url = "http://localhost:3000/user/register";
+  const url = " https://immense-sierra-85328.herokuapp.com/user/register";
   const [player, setPlayer] = useState({
     username: "",
     email: "",

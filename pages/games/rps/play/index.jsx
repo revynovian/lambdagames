@@ -91,7 +91,7 @@ const GameRPS = () => {
   // const userID = Cookies.get("userID");
   const userID = 1;
   const accessToken = Cookies.get("token");
-  const url = `http://localhost:3000/user/${userID}`;
+  const url = ` https://immense-sierra-85328.herokuapp.com/user/${userID}`;
 
   const [sending , setSending] = useState(false);
    // bootstrap modal -- games rule

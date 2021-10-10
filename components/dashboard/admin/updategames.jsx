@@ -18,7 +18,7 @@ const UpdateGames = (
   isSending}) => {
 
   const accessToken = Cookies.get('token');
-  const url = `http://localhost:3000/admin/games/update/${gameID}`;
+  const url = ` https://immense-sierra-85328.herokuapp.com/admin/games/update/${gameID}`;
   
   const [updateGame, setUpdateGame] = useState({
     game_name : gameName,

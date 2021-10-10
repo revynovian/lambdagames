@@ -8,7 +8,7 @@ import { FaTimes } from "react-icons/fa";
 const CreateGames = ({IsModalOpened, onCloseModal , isSending}) => {
   
   const accessToken = Cookies.get('token');
-  const url = "http://localhost:3000/admin/games/add";
+  const url = " https://immense-sierra-85328.herokuapp.com/admin/games/add";
   const [newGame, setNewGame] = useState({
     game_name : "",
     description: "",

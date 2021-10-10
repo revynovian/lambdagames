@@ -1,5 +1,5 @@
 import styles from './Header.module.css'
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 
 import { Navbar, Nav, Container, Modal, Button } from "react-bootstrap";

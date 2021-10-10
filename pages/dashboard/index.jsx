@@ -15,10 +15,10 @@ export async function getServerSideProps({req}) {
     const userID = req.cookies.userID;
     const accessToken = req.cookies.token;
 
-    const API_BASE_URL = "http://localhost:3000";
-    const url = `${API_BASE_URL}/user/${userID}`;
-    const urlGames = API_BASE_URL+"/user/games/";
-    // const urlUpdateImage = `${API_BASE_URL}/user/update/image/${userID}`;
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+    const url = `${apiUrl}user/${userID}`;
+    const urlGames = `${apiUrl}user/games`;
+    
   
     // Fetch data from external API
     if (!accessToken) {
@@ -145,12 +145,13 @@ const Dashboard = ({player, gameList}) => {
   }
     
 
+  // const urlUpdateImage = `${API_BASE_URL}/user/update/image/${userID}`;
   const uploadImage = async () => {    
-    console.log('test')
+    console.log('cant upload yet')
   }
   // upload profile to cloudinary
   const uploadImageCover = async () => {    
-    console.log('test')
+    console.log('cant upload yet')
   }
 
   // set image background / placeholder

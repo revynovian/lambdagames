@@ -16,11 +16,13 @@ const GameRPS = () => {
   const [playerScore, setPlayerScore] = useState(0);
   const [cpuScore, setCpuScore] = useState(0);
   const [result, setResult] = useState(null);
-  // contoh agregat skor
-  // fetch from database
-  const [newScore, setScore] = useState(null);
-  const [oldScore, setOldScore] = useState(null);
+  
   const [color , setColor] = useState("")
+  
+  // agregat skor
+  const [newScore, setScore] = useState(null);
+  // fetch from database
+  const [oldScore, setOldScore] = useState(null);
 
   const CHOICES = [
     {
@@ -84,26 +86,20 @@ const GameRPS = () => {
     setResult(null);
   };
 
+
   // fetch user data
   const [player, setPlayer] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-  const [gameID, setGameID] = useState("");
-  // const userID = Cookies.get("userID");
-  const userID = 1;
+  // hardcoded game id
+  const gameID = 1 ;
+
+  const userID = Cookies.get("userID");
   const accessToken = Cookies.get("token");
-  const url = ` https://immense-sierra-85328.herokuapp.com/user/${userID}`;
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+  const url = `${apiUrl}user/${userID}`;
 
+  // console.log(url)
   const [sending , setSending] = useState(false);
-   // bootstrap modal -- games rule
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
-   // bootstrap modal 2 -- update score
-  const [show2, setShow2] = useState(false);
-  const handleClose2 = () => setShow2(false);
-  const handleShow2 = () => setShow2(true);
   
 
   useEffect(() => {
@@ -114,16 +110,17 @@ const GameRPS = () => {
         // console.log(res.data.message)
         setIsLoading(true);
         const basicInfo = res.data.message;
-        // fix game ID later
-        const scorePlayer = res.data.message.User_Scores[0].score;
-        const gameid = res.data.message.User_Scores[0].game_id;
-        // const detailInfo = res.data.message.User_Detail
+        
+        // get all score
+        const allGameScore = res.data.message.User_Scores;
+        const getScore = allGameScore.filter((e) => {
+          return e.game_id === gameID
+        }) 
+
+        // get username and latest score
         setPlayer(basicInfo);
-        setScore(scorePlayer);
-        setOldScore(scorePlayer);
-        setGameID(gameid);
-        // setPlayerDetail(detailInfo)
-        // console.log(res);\
+        setOldScore(getScore[0].score)
+        setScore(getScore[0].score)
         
       })
       .catch((error) => {
@@ -132,6 +129,16 @@ const GameRPS = () => {
     setIsLoading(false);
   }, [url, accessToken, sending]);
 
+  // bootstrap modal -- games rule
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+   // bootstrap modal 2 -- update score
+  const [show2, setShow2] = useState(false);
+  const handleClose2 = () => setShow2(false);
+  const handleShow2 = () => setShow2(true);
 
   return (
     <div className={styles.gamePage}>
@@ -154,7 +161,7 @@ const GameRPS = () => {
             <Image src="/img/rps/goldcoin.png" style={{ width: "50px", height: "50px" }} alt="score"/>
           </Col>
           <Col md={3} className="text-start game-header_icon ">
-            <h1 className=""> {newScore} points</h1>
+            <h1 className=""> {newScore || "0"} points</h1>
           </Col>
           <Col md={1} className={styles.rulesButton}>
             <Image src="/img/rps/info.png" style={{ width: "50px", height: "50px" }} onClick={handleShow} alt="rules"/>

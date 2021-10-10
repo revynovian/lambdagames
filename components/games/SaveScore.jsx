@@ -9,7 +9,8 @@ import Cookies from "js-cookie";
 
 const Save = ({ dataScoreOld, dataScore, gameID , userID, IsModalOpened, onCloseModal, isSending }) => {
   const accessToken = Cookies.get("token");
-  const urlUpdate = ` https://immense-sierra-85328.herokuapp.com/user/score/`;
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+  const urlUpdate = `${apiUrl}user/score`;
   // Alert
   const [success, setSuccess] = useState(false);
   // update curent score

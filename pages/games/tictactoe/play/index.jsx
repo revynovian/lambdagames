@@ -100,10 +100,13 @@ const resetHandler = () => {
   // fetch user data
   const [player, setPlayer] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-  const [gameID, setGameID] = useState("");
+  // harcoded game id
+  const gameID = 2;
+
   const userID = Cookies.get("userID");
   const accessToken = Cookies.get("token");
-  const url = ` https://immense-sierra-85328.herokuapp.com/user/${userID}`;
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+  const url = `${apiUrl}user/${userID}`;
 
   const [sending , setSending] = useState(false);
    // bootstrap modal -- games rule
@@ -122,22 +125,23 @@ const resetHandler = () => {
     Axios.get(url, {
       headers: { Authorization: accessToken },
     })
-      .then((res) => {
-        // console.log(res.data.message)
-        setIsLoading(true);
-        const basicInfo = res.data.message;
-        // fix game ID later
-        const scorePlayer = res.data.message.User_Scores[0].score;
-        const gameid = res.data.message.User_Scores[0].game_id;
-        // const detailInfo = res.data.message.User_Detail
-        setPlayer(basicInfo);
-        setScore(scorePlayer);
-        setOldScore(scorePlayer);
-        setGameID(gameid);
-        // setPlayerDetail(detailInfo)
-        // console.log(res);\
-        
-      })
+    .then((res) => {
+      // console.log(res.data.message)
+      setIsLoading(true);
+      const basicInfo = res.data.message;
+      
+      // get all score
+      const allGameScore = res.data.message.User_Scores;
+      const getScore = allGameScore.filter((e) => {
+        return e.game_id === gameID
+      }) 
+
+      // get username and latest score
+      setPlayer(basicInfo);
+      setOldScore(getScore[0].score)
+      setScore(getScore[0].score)
+      
+    })
       .catch((error) => {
         console.log(error);
       });
@@ -167,7 +171,7 @@ const resetHandler = () => {
         {/* 1. header-section */}
         <Row className={`${styles.gameHeader_custom} align-items-center`}>
           <Col md={1} className="text-end">
-            <Link href="/games/rps" passHref>
+            <Link href="/games/tictactoe" passHref>
               <Image src="/img/xo/xologo.png" style={{ width: "50px", height: "50px" }} className={styles.logoButton} alt="logo"/>
             </Link>
           </Col>
@@ -227,7 +231,10 @@ const resetHandler = () => {
           </Col>
           <Col>
             <h1>Score</h1>
+            <h5>dummy game</h5>
             <Button onClick={()=> setScore(newScore + 10)} variant="success" ><FaPlusCircle style={{marginBottom: "4px"}}/></Button>
+            <br />
+            <br />
             <Button onClick={resetHandler} variant="success">Reset</Button>
             <h1>{winner}</h1>
           </Col>

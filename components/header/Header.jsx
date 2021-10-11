@@ -37,7 +37,7 @@ const Header = () => {
       <Navbar collapseOnSelect expand="lg" fixed="top" className={styles.customNavbar} >
         <Container>
           <Navbar.Brand className="text-white" href="/">
-            <FiHexagon /> BINAR GAMEHUB
+            <FiHexagon style={{transform: "rotate(90deg)"}} /> BINAR GAMEHUB
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">

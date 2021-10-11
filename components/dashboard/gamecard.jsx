@@ -22,7 +22,7 @@ const Cards = ({isAdmin, gameID ,gameDescription, gameThumbnail, gameReady, game
   // thumbnail image placeholder
   const [backImg, setBackImg] = useState(""); 
   useEffect (() => {
-    (gameThumbnail === "N/A") ? setBackImg("/img/sample-thumb.png") : setBackImg(gameThumbnail)
+    (gameThumbnail === "N/A") ? setBackImg("/img/sample-ava2.png") : setBackImg(gameThumbnail)
   },[gameThumbnail])
 
   return (
@@ -30,16 +30,16 @@ const Cards = ({isAdmin, gameID ,gameDescription, gameThumbnail, gameReady, game
       <Col md={6} lg={3} className="my-3">
           {/* <Row className="das2-card-custom" style={{backgroundImage : `url(${gameThumbnail})` , }> */}
           <Row className={styles.cardCustomGradient} 
-              style={{backgroundImage : `url(${backImg})`, borderRadius: "12px",height : "400px", width: "290px" , backgroundSize:"cover"}} >
+              style={{backgroundImage : `url(${backImg})`, borderRadius: "12px",height : "400px", width: "290px"}} >
           <Col className={`${styles.cardCustom} p-4 custom-button justify-content-between d-flex flex-column`}>
             <h4>{gameName}</h4>
             <h5 className="small">{gameDescription}</h5>
-            <div>
+            <div className={styles.gameCardButton}>
               {(gameReady === "ready")? 
               <Link href={gameLink} passHref>
                 <Button variant="warning">Details</Button>
               </Link> : 
-                <Badge pill style={{backgroundColor: "#5D5E5E" }}>{gameReady}</Badge>}
+                <Badge badge roundend style={{backgroundColor: "#5D5E5E" }}>{gameReady}</Badge>}
               {(isAdmin && 
               <> 
                 <Button variant="secondary" className="mx-1 " onClick={handleShow2}><FaEdit/>Edit</Button>

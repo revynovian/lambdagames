@@ -1,5 +1,10 @@
+.cardCustomGradient {
+  transition: 0.2s;
+}
 
-.cardCustomGradient:hover { 
+.cardCustomGradient:hover{ 
+  /* visibility: visible; */
+  /* transition: cubic-bezier(0.075, 0.82, 0.165, 1); */
   box-shadow: rgba(233, 176, 21, 0.623) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }  
 .cardCustomGradient::before {
@@ -14,10 +19,10 @@
   border-radius: 12px;
 }
 
-.cardCustom:hover  {
+/* .cardCustom:hover  {
   box-shadow: rgba(233, 176, 21, 0.623) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
   transition: 0.2s ease-in-out;
-}
+} */
 
 @keyframes cardhovertop {
   0%   {border-right: 1px solid var(--clr-secondary-accent);}
@@ -27,10 +32,20 @@
   backdrop-filter: blur(16px) saturate(180%);
   -webkit-backdrop-filter: blur(16px) saturate(180%) ;
   background-color: rgba(31, 31, 35, 0.75) ;
-  border-radius: 0px 0px 12px 12px;
+  border-radius: 50px 0px 12px 12px;
   border: 1px solid rgba(255, 255, 255, 0.125) ;
   color: white;
   position: relative;
   margin-top: -200px !important;
   z-index: 2;
+  /* visibility: hidden; */
 }
+
+/* .gameCardButton {
+  
+  display: none;
+} */
+/* 
+.cardCustom:hover .gameCardButton {
+  display: block;
+} */

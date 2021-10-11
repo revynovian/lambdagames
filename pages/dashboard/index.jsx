@@ -159,8 +159,8 @@ const Dashboard = ({player, gameList}) => {
   const [userImg, setBackUserImg] = useState(""); 
   
   useEffect (() => {
-    (!urlImgCover) ? setBackImg("/img/sample-cover.jpg") : setBackImg(urlImgCover);
-    (!urlImg) ? setBackUserImg("/img/sample-ava.png") : setBackUserImg(urlImg);
+    (!urlImgCover) ? setBackImg("/img/sample-cover2.jpg") : setBackImg(urlImgCover);
+    (!urlImg) ? setBackUserImg("/img/sample-ava2.png") : setBackUserImg(urlImg);
   }, [urlImgCover, urlImg])
 
   return (
@@ -205,7 +205,6 @@ const Dashboard = ({player, gameList}) => {
 
       {/* Game List section -- static data -- can't add new game yet */}
         <Row className="my-5">
-        
           <h2 className="text-white"><FaCubes /> Games Library</h2>
           <hr />
           {/* game library */}
@@ -213,7 +212,7 @@ const Dashboard = ({player, gameList}) => {
         </Row>
         <Row className="my-5">
           {/* game coming soon */}
-          <h4 className="text-white">More Games Coming Soon!</h4>
+          {/* <h4 className="text-white">More Games Coming Soon!</h4> */}
         </Row>
       </Container>
 

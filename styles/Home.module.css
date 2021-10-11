@@ -83,7 +83,7 @@
   animation: downText 2s;
 }
 
-/* 
+
 .typing {
   width: 32ch;
   animation: typing 1s steps(32);
@@ -96,4 +96,4 @@
   from {
     width: 0
   }
-} */
+}

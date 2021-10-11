@@ -49,3 +49,50 @@
 .cardCustom:hover .gameCardButton {
   display: block;
 } */
+
+.shareButton {
+  cursor: pointer;
+  line-height: 1.83rem;
+  font-size: 0.8rem;
+  text-align: center;
+  background-color: var(--clr-secondary);
+  width: 5rem;
+  height: 2rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.125) ;
+  padding: 0px 2px;
+  color: grey;
+}
+
+.shareButton:hover {
+  color: rgb(190, 190, 190);
+}
+
+
+.socialButton {
+  line-height: 4rem;
+  font-size: 0.8rem;
+  text-align: center;
+  width: 1rem;
+  height: 4rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.125) ;
+  padding: 0px 2px;
+  margin: 2px 8px;
+  animation: zoomIn 0.2s ease;
+}
+
+.socialButton:hover {
+  color: grey;
+  box-shadow: rgba(233, 176, 21, 0.623) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  transition: 0.2s ease-in-out
+}
+
+@keyframes zoomIn {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

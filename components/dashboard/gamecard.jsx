@@ -1,9 +1,24 @@
 import styles from "./Gamecard.module.css"
 import React, {useState , useEffect} from "react";
-import {Col, Badge, Button, Row} from "react-bootstrap";
+import {Col, Badge, Button, Row, Modal} from "react-bootstrap";
 import Link from "next/link";
 
-import { FaEdit, FaTrash} from "react-icons/fa";
+import {
+  FacebookShareButton,
+  RedditShareButton,
+  TelegramShareButton,
+  TwitterShareButton,
+} from "react-share";
+
+import { 
+  FaEdit,
+  FaTrash, 
+  FaShareAlt, 
+  FaFacebookF, 
+  FaTelegramPlane, 
+  FaTwitter, 
+  FaRedditAlien 
+} from "react-icons/fa";
 
 import DeleteGames from "./admin/deletegames";
 import UpdateGames from "./admin/updategames";
@@ -19,6 +34,11 @@ const Gamecards = ({isAdmin, gameID ,gameDescription, gameThumbnail, gameReady, 
   const handleClose2 = () => setShow2(false);
   const handleShow2 = () => setShow2(true);
 
+   // bootstrap modal 3 -- share button
+  const [show3, setShow3] = useState(false);
+  const handleClose3 = () => setShow3(false);
+  const handleShow3 = () => setShow3(true);
+  const shareUrl = `https://challenge-chapter-10.vercel.app/${gameLink}`;
   // thumbnail image placeholder
   const [backImg, setBackImg] = useState(""); 
   useEffect (() => {
@@ -32,7 +52,14 @@ const Gamecards = ({isAdmin, gameID ,gameDescription, gameThumbnail, gameReady, 
           <Row className={styles.cardCustomGradient} 
               style={{backgroundImage : `url(${backImg})`, borderRadius: "12px",height : "400px", width: "290px"}} >
           <Col className={`${styles.cardCustom} p-4 custom-button justify-content-between d-flex flex-column`}>
-            <h4>{gameName}</h4>
+            <Row>
+              <Col md={7}><h4>{gameName}</h4></Col>
+              <Col className="justify-content-end d-flex">
+                <div className={styles.shareButton} onClick={handleShow3}>
+                  share <FaShareAlt />
+                </div>
+              </Col>
+            </Row>
             <h5 className="small">{gameDescription}</h5>
             <div className={styles.gameCardButton}>
               {(gameReady === "ready")? 
@@ -70,6 +97,42 @@ const Gamecards = ({isAdmin, gameID ,gameDescription, gameThumbnail, gameReady, 
         IsModalOpened={show}
         onCloseModal={handleClose}/>
         
+        {/* share button modal */}
+        <Modal show={show3} onHide={handleClose3} backdrop={true} centered animation={false}>
+            <Modal.Body className="py-3 rounded">
+              <Row className="pb-3">
+                <Col md={10}>
+                  <h5>Share with your friends!</h5>
+                </Col>
+                <Col md={2} className="justify-content-end d-flex">
+                  <button onClick={handleClose3} className={styles.shareButton}>x</button>
+                </Col>
+              </Row>
+              <Row>
+                <Col className={styles.socialButton}>
+                  <FacebookShareButton url={shareUrl}> 
+                    <FaFacebookF style={{fontSize :"2rem"}}/> facebook
+                  </FacebookShareButton>
+                </Col>
+                <Col className={styles.socialButton}>
+                <TwitterShareButton url={shareUrl}> 
+                  <FaTwitter style={{fontSize :"2rem"}}/> twitter
+                </TwitterShareButton>
+                </Col>
+                <Col className={styles.socialButton}>
+                <RedditShareButton url={shareUrl}> 
+                  <FaRedditAlien style={{fontSize :"2rem"}}/> reddit
+                </RedditShareButton>
+                </Col>
+                <Col className={styles.socialButton}>
+                  <TelegramShareButton url={shareUrl}> 
+                    <FaTelegramPlane style={{fontSize :"2rem"}}/> telegram
+                  </TelegramShareButton>
+                </Col>
+              </Row>
+            </Modal.Body>
+        </Modal>
+
     </>
   )
 }

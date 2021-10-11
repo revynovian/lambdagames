@@ -8,7 +8,9 @@ import { FaTimes } from "react-icons/fa";
 const CreateGames = ({IsModalOpened, onCloseModal , isSending}) => {
   
   const accessToken = Cookies.get('token');
-  const url = " https://immense-sierra-85328.herokuapp.com/admin/games/add";
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+  const url = `${apiUrl}admin/games/add`;
+
   const [newGame, setNewGame] = useState({
     game_name : "",
     description: "",
@@ -29,13 +31,13 @@ const CreateGames = ({IsModalOpened, onCloseModal , isSending}) => {
 
   const handlerCreate = (e) => {
     e.preventDefault()
-    console.log("test")
+    // console.log("test")
 
     Axios.post(url, newGame, {
         headers: { Authorization: accessToken },
       })
         .then((res) => {
-          console.log(res.data.message)
+          // console.log(res.data.message)
           setSuccess(true)
           isSending(true)
         })

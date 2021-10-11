@@ -1,5 +1,5 @@
 import React , {useEffect , useState} from "react";
-// import { Link } from "react-router-dom";
+
 import Axios from "axios";
 
 import styles from "./Admin.module.css";
@@ -15,10 +15,13 @@ import Cookies from "js-cookie";
 const AdminDashboard = () => {
   const userID = Cookies.get("userID");
   const accessToken = Cookies.get("token");
-  const API_BASE_URL = "http://localhost:3000";
-  const urlGames = API_BASE_URL+"/admin/games/";
-  const urlData = `${API_BASE_URL}/user/${userID}`;
-  const urlUsers = API_BASE_URL+"/admin/";
+
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+  
+  const urlData = `${apiUrl}user/${userID}`;
+  const urlUsers =`${apiUrl}admin`;
+  const urlGames = `${apiUrl}admin/games/`;
+  
 
   const [gameList , setGameList] = useState([])
   const [player, setPlayer] = useState({});

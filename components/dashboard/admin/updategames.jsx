@@ -18,7 +18,8 @@ const UpdateGames = (
   isSending}) => {
 
   const accessToken = Cookies.get('token');
-  const url = ` https://immense-sierra-85328.herokuapp.com/admin/games/update/${gameID}`;
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+  const url = `${apiUrl}admin/games/update/${gameID}`;
   
   const [updateGame, setUpdateGame] = useState({
     game_name : gameName,
@@ -40,7 +41,7 @@ const UpdateGames = (
 
   const handleUpdate = async (e) => {
     e.preventDefault()
-    console.log("test")
+    // console.log("test")
 
     try {  
       const bodyRequest = {
@@ -53,17 +54,12 @@ const UpdateGames = (
       }
   
       await Axios.put(url, bodyRequest, {
-        headers: { Authorization: accessToken },
-      })
-        .then((res) => {
-          setSuccess(true)
-          isSending(true)
-          console.log(res.data.message)
-        })
-        .catch((error) => {
-          console.log(error);
+        headers: { Authorization: accessToken }, 
       });
 
+        setSuccess(true)
+        isSending(true)
+        
     }catch (err){
       console.log(err)
     }

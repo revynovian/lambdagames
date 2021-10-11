@@ -8,7 +8,7 @@ import { FaEdit, FaTrash} from "react-icons/fa";
 import DeleteGames from "../dashboard/admin/Deletegames";
 import UpdateGames from "../dashboard/admin/Updategames";
 
-const Cards = ({isAdmin, gameID ,gameDescription, gameThumbnail, gameReady, gameName, gameLink, gameCover, isSending}) => {
+const Gamecards = ({isAdmin, gameID ,gameDescription, gameThumbnail, gameReady, gameName, gameLink, gameCover, isSending}) => {
   // bootstrap modal 1 -- delete games
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -74,4 +74,4 @@ const Cards = ({isAdmin, gameID ,gameDescription, gameThumbnail, gameReady, game
   )
 }
 
-export default Cards;
+export default Gamecards;

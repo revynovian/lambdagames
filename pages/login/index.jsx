@@ -14,7 +14,7 @@ import { loginAsync } from '../../store/slices/user'
 const Login = () => {
 
   // const User = useSelector((state) => state.auth.isAuthenticated)
-  const Role = useSelector((state) => state.auth.user.role)
+  const Role = useSelector((state) => state.user.role)
   // get dispatch function using hook
   const dispatch = useDispatch()
 
@@ -35,7 +35,7 @@ const Login = () => {
     dispatch(loginAsync({usernameOrEmail,password}))
     .unwrap()
     .then((res) => {
-      setisLoading(false)
+      // setisLoading(false)
     }).catch ((err) => {
       setError(err)
       setisLoading(false)

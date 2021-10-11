@@ -12,8 +12,11 @@ import Cookies from 'js-cookie';
 const Header = () => {
   const dispatch = useDispatch()
 
-  const isAuthenticated = useSelector((state => state.auth.isAuthenticated))
-  const role = useSelector((state => state.auth.user.role))
+  // const isAuthenticated = useSelector((state => state.auth.isAuthenticated))
+  const role = useSelector((state => state.user.role))
+  const isAuthenticated = useSelector((state => state.isAuthenticated))
+
+  console.log(isAuthenticated)
   const isAdmin  = (role === "admin" ? true : false)
 
   // bootstrap modal

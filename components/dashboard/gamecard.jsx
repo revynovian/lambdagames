@@ -1,6 +1,6 @@
 import styles from "./Gamecard.module.css"
 import React, {useState , useEffect} from "react";
-import {Col, Badge, Button, Row, Modal} from "react-bootstrap";
+import {Col, Button, Row, Modal} from "react-bootstrap";
 import Link from "next/link";
 
 import {
@@ -23,7 +23,18 @@ import {
 import DeleteGames from "./admin/deletegames";
 import UpdateGames from "./admin/updategames";
 
-const Gamecards = ({isAdmin, gameID ,gameDescription, gameThumbnail, gameReady, gameName, gameLink, gameCover, isSending}) => {
+const Gamecards = (
+  { isAdmin, 
+    gameID ,
+    gameDescription, 
+    gameThumbnail, 
+    gameReady, 
+    gameName, 
+    gameLink, 
+    gameCover, 
+    isSending,
+    gamePlayed }) => {
+
   // bootstrap modal 1 -- delete games
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -48,10 +59,16 @@ const Gamecards = ({isAdmin, gameID ,gameDescription, gameThumbnail, gameReady, 
   return (
     <>
       <Col md={6} lg={3} className="my-3">
-          {/* <Row className="das2-card-custom" style={{backgroundImage : `url(${gameThumbnail})` , }> */}
           <Row className={styles.cardCustomGradient} 
               style={{backgroundImage : `url(${backImg})`, borderRadius: "12px",height : "400px", width: "290px"}} >
+            {/* badge info */}
+            <div style={{position : "absolute", width: "0px"}}>
+              {gamePlayed.includes(gameID) ? 
+                <div className={styles.infoPlayed}></div> : 
+                <div className={styles.notPlayed}></div>}
+            </div>
           <Col className={`${styles.cardCustom} p-4 custom-button justify-content-between d-flex flex-column`}>
+              {/* card body */}
             <Row>
               <Col md={7}><h4>{gameName}</h4></Col>
               <Col className="justify-content-end d-flex">
@@ -61,18 +78,18 @@ const Gamecards = ({isAdmin, gameID ,gameDescription, gameThumbnail, gameReady, 
               </Col>
             </Row>
             <h5 className="small">{gameDescription}</h5>
+              {/* card button */}
             <div className={styles.gameCardButton}>
               {(gameReady === "ready")? 
               <Link href={gameLink} passHref>
                 <Button variant="warning">Details</Button>
               </Link> : 
-                <Badge badge roundend style={{backgroundColor: "#5D5E5E" }}>{gameReady}</Badge>}
+                <Button disabled>{gameReady}</Button>}
               {(isAdmin && 
               <> 
                 <Button variant="secondary" className="mx-1 " onClick={handleShow2}><FaEdit/>Edit</Button>
                 <Button variant="danger" onClick={handleShow}><FaTrash/>Delete</Button>
               </>)}
-
             </div>
           </Col>
         </Row> 

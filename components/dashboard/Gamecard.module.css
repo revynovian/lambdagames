@@ -96,3 +96,30 @@
     transform: scale(1);
   }
 }
+
+.infoPlayed::before,
+.botPlayed::before
+{
+  position: relative;
+  z-index: 10;
+  top: 1rem;
+  left: 12.3rem;
+  line-height: 1.83rem;
+  font-size: 0.8rem;
+  text-align: center;
+  background-color: var(--clr-secondary);
+  width: 5rem;
+  height: 2rem;
+  border-radius: 0.5rem;
+  /* border: 1px solid rgba(255, 255, 255, 0.125) ; */
+  padding: 5px 10px;
+  color: var(--clr-primary);
+}
+
+
+.infoPlayed::before {
+  content: 'played';
+}
+.notPlayed::before {
+  content: '';
+}

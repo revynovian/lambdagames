@@ -19,7 +19,6 @@ export async function getServerSideProps({req}) {
     const url = `${apiUrl}user/${userID}`;
     const urlGames = `${apiUrl}user/games`;
     
-  
     // Fetch data from external API
     if (!accessToken) {
       return {
@@ -29,7 +28,6 @@ export async function getServerSideProps({req}) {
         },
       }
     }
-
     const {data : playerData} = await Axios.get(url, {
         headers: { Authorization: accessToken },
       })
@@ -39,8 +37,6 @@ export async function getServerSideProps({req}) {
     })
       // Pass data to the page via props
       
-    
-
     return { 
       props: { 
         player : playerData.message,
@@ -52,17 +48,19 @@ export async function getServerSideProps({req}) {
 
 
 const Dashboard = ({player, gameList}) => {
- 
 
   // const [isLoading, setIsLoading] = useState(false);
   const urlImg = player.User_Detail.profile_url;
   const urlImgCover = player.User_Detail.cover_url;
   const playerDetail = player.User_Detail;
 
-  // console.log(player)
-  // console.log(gameList)
-
-
+  const playedGames = player.User_Scores
+  // return gameid which user has played
+  const playedGamesID = []
+    playedGames.forEach((e) => {
+      playedGamesID.push(e.game_id)
+    }
+  )
   // convert date to get player's joined date
   const getDate = new Date(player.createdAt);
   const joinDate = getDate.toLocaleString("default", { month: "long", year: "numeric" });
@@ -79,6 +77,7 @@ const Dashboard = ({player, gameList}) => {
     gameReady={e.availability} 
     gameLink={e.game_link}
     isAdmin={false}
+    gamePlayed={playedGamesID}
   />
   )
 

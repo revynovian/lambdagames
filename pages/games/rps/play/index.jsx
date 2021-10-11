@@ -6,7 +6,7 @@ import { FaTimes, FaSave } from 'react-icons/fa';
 
 import Axios from "axios";
 import Link  from "next/link";
-import Save from "../../../../components/games/SaveScore";
+import Save from "../../../../components/games/savescore";
 import Cookies from "js-cookie";
 
 const GameRPS = () => {

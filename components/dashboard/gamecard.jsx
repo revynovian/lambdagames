@@ -5,8 +5,8 @@ import Link from "next/link";
 
 import { FaEdit, FaTrash} from "react-icons/fa";
 
-import DeleteGames from "../dashboard/admin/Deletegames";
-import UpdateGames from "../dashboard/admin/Updategames";
+import DeleteGames from "./admin/deletegames";
+import UpdateGames from "./admin/updategames";
 
 const Gamecards = ({isAdmin, gameID ,gameDescription, gameThumbnail, gameReady, gameName, gameLink, gameCover, isSending}) => {
   // bootstrap modal 1 -- delete games

@@ -6,7 +6,7 @@ import styles from "./Dashboard.module.css";
 import { Container, Row, Col, Button, Modal, Image} from "react-bootstrap";
 import { FaCalendarAlt, FaEdit, FaMapMarkerAlt, FaImage, FaCubes } from 'react-icons/fa';
 
-import GameCards from "../../components/dashboard/Gamecard"
+import GameCards from "../../components/dashboard/gamecard"
 
 
 // / This gets called on every request

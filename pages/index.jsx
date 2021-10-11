@@ -1,10 +1,10 @@
 import styles from "../styles/Home.module.css";
 import React from "react";
-import Thegames from "../components/home/the-games/Thegames";
-import Requirements from "../components/home/requirements/Requirements";
-import Features from "../components/home/features/Features";
-import Scores from "../components/home/scores/Scores";
-import Subscribe from "../components/home/subscribe/Subscribe";
+import Thegames from "../components/home/the-games/thegames";
+import Requirements from "../components/home/requirements/requirements";
+import Features from "../components/home/features/features";
+import Scores from "../components/home/scores/scores";
+import Subscribe from "../components/home/subscribe/subscribe";
 // import Footer from "../footer/Footer";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { BiChevronsDown } from "react-icons/bi";

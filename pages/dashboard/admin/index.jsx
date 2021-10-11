@@ -7,8 +7,8 @@ import styles from "./Admin.module.css";
 import { Container, Row,Col, Alert, Button} from "react-bootstrap";
 import { FaPlusCircle } from "react-icons/fa";
 
-import GameCards from "../../../components/dashboard/Gamecard"
-import CreateGames from "../../../components/dashboard/admin/Creategames"
+import GameCards from "../../../components/dashboard/gamecard"
+import CreateGames from "../../../components/dashboard/admin/creategames"
 import Cookies from "js-cookie";
 
 

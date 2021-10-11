@@ -3,8 +3,8 @@ import React , { useState } from "react";
 import { Container, Row, Col, Alert } from "react-bootstrap";
 
 
-import GameBoard from "../../../components/games/GameBoard";
-import LeaderBoard from "../../../components/games/Leaderboard";
+import GameBoard from "../../../components/games/gameboard";
+import LeaderBoard from "../../../components/games/leaderboard";
 
 import { FaTrophy } from 'react-icons/fa';
 import styles from "../Games.module.css";

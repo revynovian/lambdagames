@@ -1,6 +1,6 @@
 import styles from "../styles/Home.module.css";
 import React from "react";
-import Thegames from "../components/home/the-games/thegames";
+import Thegames from "../components/home/thegames/thegames";
 import Requirements from "../components/home/requirements/requirements";
 import Features from "../components/home/features/features";
 import Scores from "../components/home/scores/scores";

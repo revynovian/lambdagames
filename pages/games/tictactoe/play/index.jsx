@@ -4,16 +4,14 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Image, Modal, Button } from "react-bootstrap";
 import { FaTimes, FaSave } from 'react-icons/fa';
 
+import Save from "../../../../components/games/savescore";
+
 import Axios from "axios";
 import Link  from "next/link";
-import Save from "../../../../components/games/savescore";
 import Cookies from "js-cookie";
 
-
-import { FaPlusCircle } from "react-icons/fa";
-
 const GameXO = () => {
-  // tictactoe game logic
+  // ===== tictactoe game logic =====
 
   const [playerScore, setPlayerScore] = useState(0);
   const [cpuScore, setCpuScore] = useState(0);
@@ -22,9 +20,9 @@ const GameXO = () => {
   const [newScore, setScore] = useState(null);
   const [oldScore, setOldScore] = useState(null);
 
-  
   const [record, setRecord] = useState(new Array(9).fill(null))
   const [winner, setWinner] = useState("")
+
   const Rules =[
     // horizontal
     [0, 1, 2],
@@ -39,65 +37,94 @@ const GameXO = () => {
     [2, 4, 6]
   ]
 
-  // GAME is not working yet 
+  const [winSquare, setWinSquare] = useState([])
+  const [over , setOver] = useState(false)
+  // const [color , setColor] = useState("")
+  const human = 'x';
+  const cpu = 'o';
 
   const handleChoice = (num) => {
-  // const linesThatAre = (a,b,c) => {
-  //   return Rules.filter(squareIndexes => {
-  //     const squareValues = squareIndexes.map(index => record[index]);
-  //     return JSON.stringify([a,b,c].sort()) === JSON.stringify(squareValues.sort());
-  //   });
-  // };
-  // const playerWon = linesThatAre('x', 'x', 'x').length > 0;
-  // const computerWon = linesThatAre('o', 'o', 'o').length > 0;
-  // if (playerWon) {
-  //   setWinner('x');
-  //   setPlayerScore(playerScore + 1)
-  //   setScore(newScore + 10)
-  //   alert("you win!")
-  // }
-  // if (computerWon) {
-  //   setWinner('o');
-  //   setCpuScore(cpuScore + 1)
-  //   alert("you lose")
-  // }
+    if(!record[num]){
+      turn(num, human)
+      if(!checkdraw()) {
+        turn(cpuPick(), cpu)
+      }
+    }
+  }
 
-  const isPlayerTurn = record.filter((e) => e !== null).length % 2 === 0;
-  if(isPlayerTurn) {
+  function emptySquare () {
+    return record.map((e,i)=> e === null ? i : null).filter((val) => val !== null);
+  }
+
+  function cpuPick () {
+    return emptySquare()[Math.ceil(Math.random() * emptySquare().length)];
+  }
+
+  function checkdraw () {
+    if(emptySquare().length === 0) {
+      setOver(true)
+      setWinner("Draw")
+      // setColor("#82B6D9")
+    }
+    return false
+  }
+  function turn (squareid, player) {
     let squares = record
-    squares[num]= "x"
+    squares[squareid] = player
     setRecord([...squares])
+    let gameWon = checkWin(record, player)
+    if (gameWon) gameOver(gameWon);
   }
-  
-  const emptyIndex = record
-  .map((e,i)=> e === null ? i : null)
-  .filter((val) => val !== null);
-  
-  const randomIndex = emptyIndex[Math.ceil(Math.random() * emptyIndex.length)];
-  
-  // console.log(isCpuTurn)
-  const computerAt = index => {
-    let squares = record
-    squares[index]= "o";
-    setRecord([...squares])
+
+  function checkWin (board, player) {
+    let plays = board.reduce((a, e, i) => 
+      (e === player) ? a.concat(i) : a , []
+    )
+
+    let gameWon = null
+    for ( let [index, win] of Rules.entries()) {
+      if (win.every(e => plays.indexOf(e) > -1)) {
+        gameWon = {index, player}
+        break;
+      }
+    }
+    return gameWon
   }
-  
-  const isCpuTurn = record.filter((e) => e !== null).length % 2 === 1;
-  
-  if(isCpuTurn) {
-    computerAt(randomIndex)
+
+  function gameOver (gameWon) {
+    for (let index of Rules[gameWon.index]) {
+      // console.log(index)
+      let win = winSquare
+      win.push(index)
+      setWinSquare(win)
+    }
+    setOver(true)
+    if(gameWon.player === human) {
+      setWinner("You Win")
+      setScore( newScore => newScore + 10)
+      setPlayerScore( score => score + 1)
+      // setColor("#A0E77D")
+    }
+    else {
+      setWinner("You Lose")
+      setScore( newScore => newScore - 10)
+      setCpuScore( score => score + 1)
+      // setColor("#EF8677")
+    }
+    
   }
-}
-
-const resetHandler = () => {
-  setRecord(new Array(9).fill(null))
-  setWinner("")
-  setPlayerScore(0)
-  setCpuScore(0)
-}
 
 
-  // fetch user data
+  const resetHandler = () => {
+    setRecord(new Array(9).fill(null))
+    setWinner("")
+    // setPlayerScore(0)
+    // setCpuScore(0)
+    setWinSquare([])
+    setOver(false)
+  }
+
+  // ===  fetch user data ======
   const [player, setPlayer] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   // harcoded game id
@@ -152,6 +179,13 @@ const resetHandler = () => {
   // game section component
   const Cells =  ({num}) => {
 
+    let winner = ""
+    if(winSquare.length !== 0) {
+        winSquare.forEach((e) => {
+          if (e === num) winner = styles.winner
+        })
+      }
+
       let selected = ""
       if (record[num] === "x") selected = styles.playerX;
       if (record[num] === "o") selected = styles.playerO;
@@ -159,7 +193,7 @@ const resetHandler = () => {
       return (
         
       <td>
-        <div className={`${selected} ${styles.select}`} onClick={() => handleChoice(num)}></div>
+        <div className={`${selected} ${winner} ${styles.select}`} onClick={over ? null : () => handleChoice(num)}></div>
       </td>)
   }
   
@@ -167,87 +201,88 @@ const resetHandler = () => {
     <div className={styles.gamePage}>
       <Container className="d-flex vh-100 w-75 flex-column justify-content-center pt-5" >
         
-        <main className={`py-4 ${styles.gameBackground} ${styles.animationShow}`}>
+        <main className={`py-4 px-3 ${styles.gameBackground} ${styles.animationShow}`}>
         {/* 1. header-section */}
-        <Row className={`${styles.gameHeader_custom} align-items-center`}>
-          <Col md={1} className="text-end">
-            <Link href="/games/tictactoe" passHref>
-              <Image src="/img/xo/xologo.png" style={{ width: "50px", height: "50px" }} className={styles.logoButton} alt="logo"/>
-            </Link>
-          </Col>
-          <Col  className="text-start">
-            <h2 className=" fw-bold" style={{ color: "#F9B23D" }}>
-              TIC TAC TOE
-            </h2>
-          </Col>
-          <Col md={1} className="text-end">
-            <Image src="/img/xo/xocoin.png" style={{ width: "50px", height: "50px" }} alt="score"/>
-          </Col>
-          <Col md={3} className="text-start game-header_icon ">
-            <h1 className=""> {newScore} points</h1>
-          </Col>
-          <Col md={1} className={styles.rulesButton}>
-            <Image src="/img/xo/xorules.png" style={{ width: "50px", height: "50px" }} onClick={handleShow} alt="rules"/>
-          </Col>
-        </Row>
-        <hr />
+          <Row className={`${styles.gameHeader_custom} align-items-center`}>
+            <Col md={1} className="text-end">
+              <Link href="/games/tictactoe" passHref>
+                <Image src="/img/xo/xologo.png" style={{ width: "50px", height: "50px" }} className={styles.logoButton} alt="logo"/>
+              </Link>
+            </Col>
+            <Col  className="text-start">
+              <h2 className=" fw-bold" style={{ color: "#F9B23D" }}>
+                TIC TAC TOE
+              </h2>
+            </Col>
+            <Col md={1} className="text-end">
+              <Image src="/img/xo/xocoin.png" style={{ width: "50px", height: "50px" }} alt="score"/>
+            </Col>
+            <Col md={3} className="text-start game-header_icon ">
+              <h1 className=""> {newScore} points</h1>
+            </Col>
+            <Col md={1} className={styles.rulesButton}>
+              <Image src="/img/xo/xorules.png" style={{ width: "50px", height: "50px" }} onClick={handleShow} alt="rules"/>
+            </Col>
+          </Row>
+          <hr />
 
-        <Row >
-          <Col className="text-end">
-            <h1 style={{ textTransform: "capitalize" }}>{isLoading ? player.username : "player"}</h1>
-          </Col>
-          <Col className="text-center">
-            <h1 style={{ fontSize: "4rem" }}>
-              {playerScore}:{cpuScore}
-            </h1>
-          </Col>
-          <Col className="text-start">
-            <h1>Computer</h1>
-          </Col>
-        </Row>
-        {/* 2.Game section */}
-        <Row className="text-center my-2">
-          <Col md={8} className="d-flex justify-content-end mb-3 " >
-              <table >
-                <tbody>
-                  <tr style={{borderBottom : "2px solid white"}}> 
-                    <Cells num={0} />
-                    <Cells num={1} />
-                    <Cells num={2} />   
-                  </tr>
-                  <tr style={{borderBottom : "2px solid white"}}>
-                    <Cells num={3}/>
-                    <Cells num={4}/>
-                    <Cells num={5}/>   
-                  </tr>
-                  <tr>
-                    <Cells num={6} />
-                    <Cells num={7}/>
-                    <Cells num={8}/>   
-                  </tr>
-                </tbody>
-              </table>
-                
-          </Col>
-          <Col>
-            <h1>Score</h1>
-            <h5>dummy game</h5>
-            <Button onClick={()=> setScore(newScore + 10)} variant="success" ><FaPlusCircle style={{marginBottom: "4px"}}/></Button>
-            <br />
-            <br />
-            <Button onClick={resetHandler} variant="success">Reset</Button>
-            <h1>{winner}</h1>
-          </Col>
-        </Row>
-            
-          {/* 3. Save button */}
-        <Row>
-          <Col className="d-flex flex-column align-items-center mb-3 custom-button">
-            <Button variant="warning" className="ps-5 pe-5" onClick={handleShow2}>
-            <FaSave /><strong> Save</strong>
-            </Button>
-          </Col>
-        </Row>
+          {/* 2. playername and score */}
+          <Row >
+            <Col className="text-end">
+              <h1 style={{ textTransform: "capitalize" }}>{isLoading ? player.username : "player"}</h1>
+            </Col>
+            <Col className="text-center"> 
+              <h1 style={{ fontSize: "4rem" }}>
+                {playerScore}:{cpuScore}
+              </h1>
+            </Col>
+            <Col className="text-start">
+              <h1>Computer</h1>
+            </Col>
+          </Row>
+
+          {/* 3a.Game section */}
+          <Row className="text-center my-2">
+            <Col md={8} className="d-flex justify-content-end mb-3 align-items-center " >
+                <table >
+                  <tbody>
+                    <tr style={{borderBottom : "2px solid white"}}> 
+                      <Cells num={0} />
+                      <Cells num={1} />
+                      <Cells num={2} />   
+                    </tr>
+                    <tr style={{borderBottom : "2px solid white"}}>
+                      <Cells num={3}/>
+                      <Cells num={4}/>
+                      <Cells num={5}/>   
+                    </tr>
+                    <tr>
+                      <Cells num={6} />
+                      <Cells num={7}/>
+                      <Cells num={8}/>   
+                    </tr>
+                  </tbody>
+                </table>
+            </Col>
+            {/* 3b. result and reset button */}
+            <Col md={2} className="d-flex flex-column justify-content-center align-items-center">
+                <h1 className={`${styles.bgSelected} ${styles.bgDefault}`} style={{ color: `white`, fontSize: "2rem" }}>
+                    {winner ? winner : "VS"}
+                </h1>  
+                <div className="py-3">
+                  <Image src="/img/rps/refresh.png" alt="refresh" className={`${styles.select}`} style={{padding: "1.2rem"}} onClick={resetHandler}/>
+                </div>
+            </Col>
+          </Row>
+
+        {/* 4. Save button */}
+          <Row >
+            <Col className="text-center custom-button">
+              <Button variant="warning" className="ps-5 pe-5" onClick={handleShow2}>
+                <FaSave /><strong> Save</strong>
+              </Button>
+            </Col>
+          </Row>
         </main>
       </Container>
 

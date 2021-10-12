@@ -26,6 +26,7 @@ const AdminDashboard = () => {
   const [gameList , setGameList] = useState([])
   const [player, setPlayer] = useState({});
   const [Allplayer, setAllPlayer] = useState([]);
+  const [playerScore, setPlayerScore] = useState([]);
 
   const [sending , setSending] = useState(false);
   // fetch username and all players
@@ -67,6 +68,14 @@ const AdminDashboard = () => {
         return setSending(false)
   }, [urlData, urlUsers,urlGames, accessToken, sending]);
 
+
+    // const playedGames = player.User_Scores
+    // return gameid which user has played
+    const playedGamesID = []
+      playerScore.forEach((e) => {
+        playerScore.push(e.game_id)
+      }
+    )
   // gameList Library
     const gameListLibrary = gameList.map((e) => 
     <GameCards
@@ -80,6 +89,7 @@ const AdminDashboard = () => {
     gameLink={e.game_link}
     isAdmin={true}
     isSending={setSending}
+    gamePlayed={playedGamesID}
     />
   )
 

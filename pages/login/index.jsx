@@ -52,8 +52,8 @@ const Login = () => {
 
   return (
     <div>
-      <Container fluid className={`${styles.loginPage}`}>
-        <Row className="justify-content-center vh-100 align-items-center pb-5 ">
+      <Container fluid className={`${styles.loginPage} p-5`}>
+        <Row className="justify-content-center vh-100 align-items-center py-5 ">
           <Col md={4} className={`${styles.loginForm_custom} text-white p-5`}>
             <h2 className="text-center">Login</h2>
             {error && (

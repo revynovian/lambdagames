@@ -1,5 +1,6 @@
 .cardCustomGradient {
   transition: 0.2s;
+  margin: auto;
 }
 
 .cardCustomGradient:hover{ 

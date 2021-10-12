@@ -11,18 +11,36 @@
 }
 
 .customNavbarLink a {
-  color: rgb(201, 201, 201) !important;
+  color: white ;
   text-decoration: none;
   margin-left: 1rem;
 } 
-.customNavbarLink a:hover::after {
+.customNavbarLink a::after {
   content: '';
   display: block;
   border-bottom: 3px solid var(--clr-primary);
-  width: 50%;
   margin: auto;
   padding-bottom: 5px;
   margin-bottom: -8px;
+  width: 40%;
+  transition: all 0.2s ease-in-out 0s;
+  visibility: hidden;
+  transform: scaleX(0);
 }
 
+.customNavbarLink a:hover::after {
+  visibility: visible;
+  transform: scaleX(1);
+}
+
+.activeLink {
+  color: #FFB548 !important;
+  /* border-bottom: 3px solid var(--clr-primary); */
+}
+@media screen and (max-width : 900px) {
+  .customNavbarLink a:hover::after {
+    content: '';
+    display: none;
+  }
+}
 

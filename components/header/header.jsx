@@ -1,6 +1,7 @@
 import styles from './Header.module.css'
 import React, { useState } from "react";
 import Link from "next/link";
+import { useRouter } from 'next/router';
 
 import { Navbar, Nav, Container, Modal, Button } from "react-bootstrap";
 import { FaSignOutAlt } from 'react-icons/fa';
@@ -16,7 +17,7 @@ const Header = () => {
   const role = useSelector((state => state.user.role))
   const isAuthenticated = useSelector((state => state.isAuthenticated))
 
-  console.log(isAuthenticated)
+  // console.log(isAuthenticated)
   const isAdmin  = (role === "admin" ? true : false)
 
   // bootstrap modal
@@ -31,7 +32,9 @@ const Header = () => {
     Cookies.remove("userID");
     
   };
-
+  
+  const router = useRouter();
+  console.log(router.pathname)
   return (
     <div>
       <Navbar collapseOnSelect expand="lg" fixed="top" className={styles.customNavbar} >
@@ -43,31 +46,36 @@ const Header = () => {
           <Navbar.Collapse id="responsive-navbar-nav">
 
             <Nav className={`${styles.customNavbarLink} me-auto`}>
-              <Nav.Link as={Link} href="/">
-                Home
-              </Nav.Link>
-                {!isAdmin && (<Nav.Link  as={Link} href="/dashboard">Dashboard
-                </Nav.Link>)}
-                {isAdmin && (<Nav.Link  as={Link} href="/dashboard/admin">
-                  Dashboard
-                </Nav.Link>)}
-              <Nav.Link as={Link} href="/about">
-                About Us
-              </Nav.Link>
+              <Link href="/">
+                <a className={router.pathname === "/" ? `${styles.activeLink}` : ""}>Home</a>
+              </Link>
+                {!isAdmin && (
+                  <Link href="/dashboard">
+                    <a className={router.pathname === "/dashboard" ? `${styles.activeLink}` : ""}>Dashboard</a>
+                  </Link>)}
+                {isAdmin && (<Link href="/dashboard/admin">
+                    <a className={router.pathname === "/dashboard/admin" ? `${styles.activeLink}` : ""}>Dashboard</a>
+                  </Link>)}
+              
+              <Link href="/about" >
+                <a className={router.pathname === "/about" ? `${styles.activeLink}` : ""} >
+                  About Us
+                </a>
+              </Link>
             </Nav>
             <Nav className={`${styles.customNavbarLink}`}>
               {!isAuthenticated && (
-                <Nav.Link as={Link} href="/login">
-                  Login
-                </Nav.Link>
+                <Link href="/login">
+                  <a className={router.pathname === "/login" ? `${styles.activeLink}` : ""}>Login</a>
+                </Link>
               )}
               {!isAuthenticated && (
-                <Nav.Link as={Link} href="/register">
-                  Register
-                </Nav.Link>
+                <Link href="/register">
+                  <a className={router.pathname === "/register" ? `${styles.activeLink}` : ""}>Register</a>
+                </Link>
               )}
               {isAuthenticated && (
-                <Nav.Link  onClick={handleShow}>
+                <Nav.Link  onClick={handleShow} style={{color : "white"}}>
                   <FaSignOutAlt /> Logout
                 </Nav.Link>
               )}

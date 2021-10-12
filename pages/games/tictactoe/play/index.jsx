@@ -199,12 +199,12 @@ const GameXO = () => {
   
   return (
     <div className={styles.gamePage}>
-      <Container className="d-flex vh-100 w-75 flex-column justify-content-center pt-5" >
+      <Container className={`d-flex flex-column justify-content-center pt-5  ${styles.gameContainer}`} >
         
-        <main className={`py-4 px-3 ${styles.gameBackground} ${styles.animationShow}`}>
+        <main className={`py-4 my-5 ${styles.gameBackground} ${styles.animationShow}`}>
         {/* 1. header-section */}
           <Row className={`${styles.gameHeader_custom} align-items-center`}>
-            <Col md={1} className="text-end">
+            <Col md={1} className="text-center">
               <Link href="/games/tictactoe" passHref>
                 <Image src="/img/xo/xologo.png" style={{ width: "50px", height: "50px" }} className={styles.logoButton} alt="logo"/>
               </Link>
@@ -214,10 +214,10 @@ const GameXO = () => {
                 TIC TAC TOE
               </h2>
             </Col>
-            <Col md={1} className="text-end">
+            <Col md={1} className={styles.coinIcon}>
               <Image src="/img/xo/xocoin.png" style={{ width: "50px", height: "50px" }} alt="score"/>
             </Col>
-            <Col md={3} className="text-start game-header_icon ">
+            <Col md={3} className="text-start">
               <h1 className=""> {newScore} points</h1>
             </Col>
             <Col md={1} className={styles.rulesButton}>
@@ -243,7 +243,7 @@ const GameXO = () => {
 
           {/* 3a.Game section */}
           <Row className="text-center my-2">
-            <Col md={8} className="d-flex justify-content-end mb-3 align-items-center " >
+            <Col md={8} className="d-flex justify-content-center mb-3 align-items-center " >
                 <table >
                   <tbody>
                     <tr style={{borderBottom : "2px solid white"}}> 

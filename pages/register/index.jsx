@@ -56,7 +56,7 @@ const Register = () => {
   return (
     <div>
       <Container fluid className={`${styles.registerPage} p-5`}>
-        <Row className="justify-content-center p-5">
+        <Row className="justify-content-center py-5">
           <Col md={5} className={`text-white p-5 ${styles.background}`}>
             <h2 className="text-center">Sign Up</h2>
             {error && <div className="error">{error}</div>}

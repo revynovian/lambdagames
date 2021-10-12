@@ -5,8 +5,8 @@ const About = () => {
 
   return (
     <div>
-      <Container fluid className={styles.aboutPage}>
-        <Row className="justify-content-center vh-100 align-items-center pb-5">
+      <Container fluid className={`${styles.aboutPage} p-5`}>
+        <Row className="justify-content-center vh-100 align-items-center py-5">
           <Col md={4} className={`text-white p-5 text-center ${styles.background}`}>
             <h1 className="display-4">BINAR</h1>
             <h1 className="display-4">GAMEHUB</h1>

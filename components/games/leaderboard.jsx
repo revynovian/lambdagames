@@ -7,7 +7,7 @@ const LeaderBoard = ({isLoad,dataPlayers}) => {
   return (
   <>
     {/* leaderboard table section*/}
-      <Container className="text-white">
+      <Container className={styles.tableContainer}>
         <table className={`mb-5 mt-3 ${styles.customTable}`}>
           <thead style={{color: "#FFCA2C"}}>
           <tr>

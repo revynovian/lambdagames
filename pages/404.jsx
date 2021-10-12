@@ -6,8 +6,8 @@ const NotFound = () => {
 
   return (
     <div>
-      <Container fluid className={styles.notfoundPage}>
-        <Row className="justify-content-center vh-100 align-items-center pb-5 custom-button">
+      <Container fluid className={`${styles.notfoundPage} p-5`}>
+        <Row className="justify-content-center vh-100 align-items-center py-5 custom-button">
           <Col md={4} className={`${styles.background} text-white p-5 text-center`}>
             <h1>404</h1>
             <h1>Page Not Found</h1>

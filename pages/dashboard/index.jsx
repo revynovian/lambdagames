@@ -163,18 +163,18 @@ const Dashboard = ({player, gameList}) => {
   }, [urlImgCover, urlImg])
 
   return (
-    <div style={{ backgroundImage: `url("/img/dark-honeycomb.png")` , height: "vh-100"}}>
+    <div style={{ backgroundImage: `url("/img/dark-honeycomb.png")` , minHeight: "100vh"}}>
       <Container className="py-5">
         <Row className={`justify-content-center mb-2 text-white p-4 mt-5 ${styles.profileCard}`}  style={{backgroundImage: `url(${backImg})`, backgroundSize:"cover"}}>
           <Container className={`${styles.profileCard_custom} px-4 pt-2`}>
             <Row>
-            <Col md={2} className="text-center d-flex flex-column justify-content-between">
+            <Col md={3} className={`d-flex flex-column ${styles.profileCard_custom3}`}>
               <Image className={styles.profile} src={userImg} alt="Avatar"/>
-              <Button variant="secondary" type="submit" className="mt-3 mx-auto badge text-secondary" onClick={handleShow} style={{background : "transparent"}}>
+              <Button variant="secondary" type="submit" className="mt-3 badge text-secondary" onClick={handleShow} style={{background : "transparent"}}>
                 <FaImage /> change photo
               </Button>
             </Col>
-            <Col md={10} className="text-end custom-button">
+            <Col md={9} className={`custom-button ${styles.profileCard_custom2}`}>
               <Link passHref href="/dashboard/profile" className="text-warning">
                   <Button variant="warning" type="submit">
                     <FaEdit /> Edit Profile

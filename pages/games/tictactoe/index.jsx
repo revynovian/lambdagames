@@ -88,7 +88,7 @@ const TictactoePage = ({playerAll, gameList}) => {
   
 
   return (
-    <div style={{ backgroundImage: 'url("/img/dark-honeycomb.png")', height: "100vh"}}>
+    <div style={{ backgroundImage: 'url("/img/dark-honeycomb.png")', minHeight: "100vh"}}>
       <Container className="py-5 custom-button"> 
         <Row>
           <Col>

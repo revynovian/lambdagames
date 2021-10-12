@@ -142,12 +142,12 @@ const GameRPS = () => {
 
   return (
     <div className={styles.gamePage}>
-      <Container className="d-flex vh-100 w-75 flex-column justify-content-center pt-5" >
+      <Container className={`d-flex flex-column justify-content-center pt-5  ${styles.gameContainer}`} >
         
-        <main className={`py-4 ${styles.gameBackground} ${styles.animationShow}`}>
+        <main className={`py-4 my-5 ${styles.gameBackground} ${styles.animationShow}`}>
         {/* 1. header-section */}
         <Row className={`${styles.gameHeader_custom} align-items-center`}>
-          <Col md={1} className="text-end">
+          <Col md={1} className="text-center">
             <Link href="/games/rps" passHref>
               <Image src="/img/rps/logo.png" style={{ width: "50px", height: "50px" }} className={styles.logoButton} alt="logo"/>
             </Link>
@@ -157,10 +157,10 @@ const GameRPS = () => {
               ROCK PAPER SCISSORS
             </h2>
           </Col>
-          <Col md={1} className="text-end">
+          <Col md={1} className={styles.coinIcon}>
             <Image src="/img/rps/goldcoin.png" style={{ width: "50px", height: "50px" }} alt="score"/>
           </Col>
-          <Col md={3} className="text-start game-header_icon ">
+          <Col md={3} className="text-start">
             <h1 className=""> {newScore || "0"} points</h1>
           </Col>
           <Col md={1} className={styles.rulesButton}>

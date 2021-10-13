@@ -34,7 +34,7 @@ const Header = () => {
   };
   
   const router = useRouter();
-  console.log(router.pathname)
+  // console.log(router.pathname)
   return (
     <div>
       <Navbar collapseOnSelect expand="lg" fixed="top" className={styles.customNavbar} >

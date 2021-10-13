@@ -119,8 +119,15 @@ const GameRPS = () => {
 
         // get username and latest score
         setPlayer(basicInfo);
-        setOldScore(getScore[0].score)
-        setScore(getScore[0].score)
+
+        // if user first time play setscore 0
+        if (getScore.length === 0) {
+          setOldScore(0)
+          setScore(0)        
+        } else {
+          setOldScore(getScore[0].score)
+          setScore(getScore[0].score)
+        }
         
       })
       .catch((error) => {
@@ -161,7 +168,7 @@ const GameRPS = () => {
             <Image src="/img/rps/goldcoin.png" style={{ width: "50px", height: "50px" }} alt="score"/>
           </Col>
           <Col md={3} className="text-start">
-            <h1 className=""> {newScore || "0"} points</h1>
+            <h1 className=""> {newScore} points</h1>
           </Col>
           <Col md={1} className={styles.rulesButton}>
             <Image src="/img/rps/info.png" style={{ width: "50px", height: "50px" }} onClick={handleShow} alt="rules"/>

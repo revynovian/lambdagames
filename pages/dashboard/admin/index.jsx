@@ -1,32 +1,56 @@
 import React , {useEffect , useState} from "react";
-
 import Axios from "axios";
+import Cookies from "js-cookie";
 
 import styles from "./Admin.module.css";
-
 import { Container, Row,Col, Alert, Button} from "react-bootstrap";
 import { FaPlusCircle } from "react-icons/fa";
 
 import GameCards from "../../../components/dashboard/gamecard"
 import CreateGames from "../../../components/dashboard/admin/creategames"
-import Cookies from "js-cookie";
 
+// This gets called on every request
+export async function getServerSideProps({req}) {
+  // url constant
+    const accessToken = req.cookies.token;
+    const userID = req.cookies.userID;
 
-const AdminDashboard = () => {
-  const userID = Cookies.get("userID");
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+    const urlData = `${apiUrl}user/${userID}`;
+  
+    // Fetch data from external API
+    if (!accessToken) {
+      return {
+        redirect: {
+          destination: '/login',
+          permanent: false,
+        },
+      }
+    }
+    const {data : playerData} = await Axios.get(urlData, {
+        headers: { Authorization: accessToken },
+      })
+      // Pass data to the page via props
+    return { 
+      props: { 
+        player : playerData.message,
+      } 
+    }
+    
+}
+const AdminDashboard = ({player}) => {
+  // const userID = Cookies.get("userID");
   const accessToken = Cookies.get("token");
 
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
   
-  const urlData = `${apiUrl}user/${userID}`;
+  // const urlData = `${apiUrl}user/${userID}`;
   const urlUsers =`${apiUrl}admin`;
   const urlGames = `${apiUrl}admin/games/`;
   
-
   const [gameList , setGameList] = useState([])
-  const [player, setPlayer] = useState({});
   const [Allplayer, setAllPlayer] = useState([]);
-  const [playerScore, setPlayerScore] = useState([]);
+  // const [player, setPlayer] = useState({});
 
   const [sending , setSending] = useState(false);
   // fetch username and all players
@@ -42,16 +66,16 @@ const AdminDashboard = () => {
         console.log(error);
       });
 
-    Axios.get(urlData, {
-      headers: { Authorization: accessToken },
-    })
-      .then((res) => {
-        const basicInfo = res.data.message;
-        setPlayer(basicInfo);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    // Axios.get(urlData, {
+    //   headers: { Authorization: accessToken },
+    // })
+    //   .then((res) => {
+    //     const basicInfo = res.data.message;
+    //     setPlayer(basicInfo);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
 
       Axios.get(urlGames, {
         headers: { Authorization: accessToken },
@@ -66,14 +90,14 @@ const AdminDashboard = () => {
         });
       
         return setSending(false)
-  }, [urlData, urlUsers,urlGames, accessToken, sending]);
-
+  }, [ urlUsers,urlGames, accessToken, sending]);
 
     // const playedGames = player.User_Scores
     // return gameid which user has played
+    const playerScore = player.User_Scores
     const playedGamesID = []
       playerScore.forEach((e) => {
-        playerScore.push(e.game_id)
+        playedGamesID.push(e.game_id)
       }
     )
   // gameList Library

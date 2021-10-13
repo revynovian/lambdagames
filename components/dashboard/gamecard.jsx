@@ -77,7 +77,7 @@ const Gamecards = (
                 </div>
               </Col>
             </Row>
-            <h5 className="small">{gameDescription}</h5>
+            <h5 className="small text-secondary">{gameDescription}</h5>
               {/* card button */}
             <div className={styles.gameCardButton}>
               {(gameReady === "ready")? 

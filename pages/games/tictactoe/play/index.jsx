@@ -165,8 +165,15 @@ const GameXO = () => {
 
       // get username and latest score
       setPlayer(basicInfo);
-      setOldScore(getScore[0].score)
-      setScore(getScore[0].score)
+      
+      // if user first time play setscore 0
+      if (getScore.length === 0) {
+        setOldScore(0)
+        setScore(0)        
+      } else {
+        setOldScore(getScore[0].score)
+        setScore(getScore[0].score)
+      }
       
     })
       .catch((error) => {

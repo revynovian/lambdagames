@@ -6,9 +6,9 @@ const About = () => {
 
   return (
     <div>
-      <Container fluid className={`${styles.aboutPage} p-5`}>
-        <Row className="justify-content-center  align-items-center py-5">
-          <Col md={10} className={`d-flex text-white p-5 text-center justify-content-around align-items-center ${styles.background}`}>
+      <Container fluid className={`${styles.aboutPage} p-5 d-flex justify-content-center`}>
+        <Row className={`text-white p-2 py-5 mt-5 text-center justify-content-center align-items-center ${styles.background}`}>
+          <Col md={3}>
             <div>
             <Image src="/img/logobig.png" style={{width: "65px", height: "70px" ,margin: "10px"}} alt="logo-icon"/>
             <h2 className="display-6">BINAR GAMEHUB</h2>
@@ -23,12 +23,22 @@ const About = () => {
               <Image src="/img/icon-bootstrap.png" style={{width: "50px", height: "50px",margin: "10px"}} alt="bootstrap-icon" />
               <Image src="/img/icon-pg.png" style={{width: "50px", height: "50px", margin:"10px" }} alt="postgresql-icon"/>
             </div>
+          </Col>
+          <Col md={1}>
             <div>
               <div className={styles.vl}></div>
             </div>
-            <div className="ps-5">
-              <ReactPlayer playing controls url='https://res.cloudinary.com/revynovian/video/upload/v1635846828/binar/video-profile_wc6smo.mp4' />
-            </div>
+          </Col>
+          <Col md={7} sm={12} className='py-5'>
+            <div className={styles.playerWrapper}>
+                <ReactPlayer 
+                className={styles.videoPlayer}
+                playing={true}
+                controls={true} 
+                width='100%'
+                height='100%'
+                url='https://res.cloudinary.com/revynovian/video/upload/v1635846828/binar/video-profile_wc6smo.mp4' />
+              </div>
           </Col>
         </Row>
       </Container>

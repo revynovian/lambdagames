@@ -4,7 +4,6 @@
   background-position: center;
   min-height: 100vh;
   background-image: linear-gradient(to top,rgba(0, 0, 0, 0.712),rgba(0, 0, 0, 0.089)),url(/img/contoh.jpg);
-  
 }
 
 .aboutPage h1{
@@ -17,6 +16,7 @@
   background-color: rgba(31, 31, 35, 0.75);
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.125);
+  width: 80vw;
 }
 
 .vl {
@@ -27,4 +27,22 @@
   /* left: 50%; */
   margin-left: 4rem;
   /* top: 0; */
+}
+
+.playerWrapper {
+  margin-left: 2rem;
+}
+
+/* .videoPlayer {
+  width: auto;
+  height: 50%;
+} */
+
+@media only screen and (max-width: 900px) {
+  .vl {
+    display: none;
+  }
+  .playerWrapper {
+    margin-left: 0rem;
+  }
 }

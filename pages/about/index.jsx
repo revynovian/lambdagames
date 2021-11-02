@@ -10,9 +10,9 @@ const About = () => {
         <Row className="justify-content-center  align-items-center py-5">
           <Col md={10} className={`d-flex text-white p-5 text-center justify-content-around align-items-center ${styles.background}`}>
             <div>
-            <h1 className="display-4">BINAR</h1>
-            <h1 className="display-4">GAMEHUB</h1>
-            <h2 className="lead">The best place to play browser games</h2>
+            <Image src="/img/logobig.png" style={{width: "65px", height: "70px" ,margin: "10px"}} alt="logo-icon"/>
+            <h2 className="display-6">BINAR GAMEHUB</h2>
+            <h4 className="lead">The best place to play browser games</h4>
             <hr />
             <h4> FSW - BINAR ACADEMY </h4>
             <h4>Group 1 Wave 10</h4>
@@ -27,7 +27,7 @@ const About = () => {
               <div className={styles.vl}></div>
             </div>
             <div className="ps-5">
-              <ReactPlayer playing controls url='https://res.cloudinary.com/revynovian/video/upload/v1635349838/binar/sample-video_pvyupc.webm' />
+              <ReactPlayer playing controls url='https://res.cloudinary.com/revynovian/video/upload/v1635846828/binar/video-profile_wc6smo.mp4' />
             </div>
           </Col>
         </Row>

@@ -3,9 +3,9 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from 'next/router';
 
-import { Navbar, Nav, Container, Modal, Button } from "react-bootstrap";
+import { Navbar, Nav, Container, Modal, Button , Image} from "react-bootstrap";
 import { FaSignOutAlt } from 'react-icons/fa';
-import { FiHexagon } from "react-icons/fi";
+// import { FiHexagon } from "react-icons/fi";
 
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../../store/slices/user';
@@ -40,7 +40,8 @@ const Header = () => {
       <Navbar collapseOnSelect expand="lg" fixed="top" className={styles.customNavbar} >
         <Container>
           <Navbar.Brand className="text-white" href="/">
-            <FiHexagon style={{transform: "rotate(90deg)"}} /> BINAR GAMEHUB
+          <Image src="/img/logobig.png" style={{width: "20px", height: "24px" ,marginRight: "10px"}} alt="logo-icon"/>
+            BINAR GAMEHUB
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">

@@ -1,7 +1,7 @@
 
 import React , { useState } from "react";
 import { Container, Row, Col, Alert } from "react-bootstrap";
-
+import Head from "next/head"
 
 import GameBoard from "../../../components/games/gameboard";
 import LeaderBoard from "../../../components/games/leaderboard";
@@ -90,6 +90,14 @@ const RpsPage = ({playerAll, gameList}) => {
 
   return (
     <div style={{ backgroundImage: 'url("/img/dark-honeycomb.png")', minHeight: "100vh"}}>
+      <Head>
+      
+        <meta property="og:title" content={`Binargamehub - ${gameList[0].game_name}`} />
+        <meta property="og:description" content={gameList[0].description} />
+        <meta property="og:image" content={gameList[0].thumbnail_url} />
+        <meta property="og:url" content={gameList[0].game_link} />
+      </Head>
+
       <Container className="py-5 custom-button"> 
         <Row>
           <Col>

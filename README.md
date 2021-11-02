@@ -4,10 +4,14 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ### State Management (Redux) and Server Side Rendering (Next.js)
 
-First, add environmental variables for API baseURL
+First, add environmental variables for API baseURL, Cloudinary API, and Cloudinary Preset
 
 ```bash
-e.g NEXT_PUBLIC_API_URL=https://immense-sierra-85328.herokuapp.com/
+e.g 
+NEXT_PUBLIC_API_URL=https://immense-sierra-85328.herokuapp.com/
+NEXT_PUBLIC_CLOUDINARY_API=https://api.cloudinary.com/v1_1/username/image/upload
+NEXT_PUBLIC_CLOUDINARY_PRESET_PROFILE=binar-profileimg
+NEXT_PUBLIC_CLOUDINARY_PRESET_COVER=binar-coverimg
 ```
 
 install dependencies

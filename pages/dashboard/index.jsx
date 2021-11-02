@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Axios from "axios";
+import Cookies from "js-cookie";
 
 import styles from "./Dashboard.module.css";
 import { Container, Row, Col, Button, Modal, Image} from "react-bootstrap";
@@ -50,9 +51,11 @@ export async function getServerSideProps({req}) {
 const Dashboard = ({player, gameList}) => {
 
   // const [isLoading, setIsLoading] = useState(false);
-  const urlImg = player.User_Detail.profile_url;
-  const urlImgCover = player.User_Detail.cover_url;
+  // const urlImg = player.User_Detail.profile_url;
+  // const urlImgCover = player.User_Detail.cover_url;
   const playerDetail = player.User_Detail;
+  const [urlImg, setUrlImg] = useState(player.User_Detail.profile_url)
+  const [urlImgCover, setUrlImgCover] = useState( player.User_Detail.cover_url)
 
   const playedGames = player.User_Scores
   // return gameid which user has played
@@ -142,15 +145,53 @@ const Dashboard = ({player, gameList}) => {
     }
     setcoverFile(e.target.files[0])
   }
+  
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+  const userID = Cookies.get("userID");
+  const accessToken = Cookies.get("token");
+  const urlUpdateImage = `${apiUrl}user/update/image/${userID}`;
     
+  // upload profile to cloudinary
+  const cloudinary_API = process.env.NEXT_PUBLIC_CLOUDINARY_API;
+  const preset1 =  process.env.NEXT_PUBLIC_CLOUDINARY_PRESET_PROFILE;
+  const preset2 =  process.env.NEXT_PUBLIC_CLOUDINARY_PRESET_COVER;
 
-  // const urlUpdateImage = `${API_BASE_URL}/user/update/image/${userID}`;
-  const uploadImage = async () => {    
-    console.log('cant upload yet')
+  const uploadImage = async () =>{    
+    const data = new FormData()
+    data.append("file", photoFile)
+    data.append("upload_preset", preset1)
+    try {
+      const res = await Axios.post(cloudinary_API, data)
+      const url = res.data.secure_url;
+      setUrlImg(url)
+      setShow(false);
+      await Axios.put(urlUpdateImage, {
+        profileUrl : url,
+        coverUrl: urlImgCover
+      },
+      {headers: { Authorization: accessToken }})
+    } catch(err) {
+      console.log(err)
+    }
   }
   // upload profile to cloudinary
-  const uploadImageCover = async () => {    
-    console.log('cant upload yet')
+  const uploadImageCover = async () =>{    
+    const data = new FormData()
+    data.append("file", coverFile)
+    data.append("upload_preset", preset2)
+    try {
+      const res = await Axios.post(cloudinary_API, data)
+      const url = res.data.secure_url;
+      setUrlImgCover(url)
+      setShowModal2(false);
+      await Axios.put(urlUpdateImage, {
+        profileUrl : urlImg,
+        coverUrl: url
+      },
+      {headers: { Authorization: accessToken }})
+    } catch(err) {
+      console.log(err)
+    }
   }
 
   // set image background / placeholder

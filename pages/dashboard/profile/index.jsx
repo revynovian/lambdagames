@@ -15,8 +15,10 @@ const Profile = () => {
 
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
   const url = `${apiUrl}user/${userID}`;
-  const urlUpdate = `${apiUrl}user/update/?id=${userID}`;
-  const urlDelete = `${apiUrl}user/delete/?id=${userID}`;
+  // const urlUpdate = `${apiUrl}user/update/?id=${userID}`;
+  // const urlDelete = `${apiUrl}user/delete/?id=${userID}`;
+  const urlUpdate = `${apiUrl}user/update/`;
+  const urlDelete = `${apiUrl}user/delete/`;
 
   // player-update form
   const [player, setPlayer] = useState({});
@@ -63,7 +65,7 @@ const Profile = () => {
       bio: playerDetail.bio,
     };
 
-    console.log(body);
+    // console.log(body);
 
     Axios.put(urlUpdate, body, {
       headers: { Authorization: accessToken },

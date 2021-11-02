@@ -94,7 +94,7 @@ const RpsPage = ({playerAll, gameList}) => {
         <meta property="og:title" content={`Binargamehub - ${gameList[0].game_name}`} />
         <meta property="og:description" content={gameList[0].description} />
         <meta property="og:image" content={gameList[0].thumbnail_url} />
-        <meta property="og:url" content={`http://binargamehub-dev.vercel.app${gameList[0].game_link}`} />
+        <meta property="og:url" content={`https://binargamehub-dev.vercel.app${gameList[0].game_link}`} />
       </Head>
 
       <Container className="py-5 custom-button"> 

@@ -49,7 +49,7 @@ const Gamecards = (
   const [show3, setShow3] = useState(false);
   const handleClose3 = () => setShow3(false);
   const handleShow3 = () => setShow3(true);
-  const shareUrl = `http://binargamehub-dev.vercel.app${gameLink}`;
+  const shareUrl = `https://binargamehub-dev.vercel.app${gameLink}`;
   // thumbnail image placeholder
   const [backImg, setBackImg] = useState(""); 
   useEffect (() => {

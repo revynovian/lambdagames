@@ -8,7 +8,8 @@ import Link from "next/link";
 const Register = () => {
   const router = useRouter();
 
-  const url = " https://immense-sierra-85328.herokuapp.com/user/register";
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+  const url = `${apiUrl}user/register`;
   const [player, setPlayer] = useState({
     username: "",
     email: "",

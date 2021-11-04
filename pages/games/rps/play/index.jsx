@@ -8,8 +8,20 @@ import Axios from "axios";
 import Link  from "next/link";
 import Save from "../../../../components/games/savescore";
 import Cookies from "js-cookie";
+import { useRouter } from "next/router";
 
 const GameRPS = () => {
+  // protected route
+  const router = useRouter();
+  const userID = Cookies.get("userID");
+  const accessToken = Cookies.get("token");
+
+  useEffect (() => {
+    if(!accessToken) {
+      router.push('/login')
+    }
+  })
+
   // rps game logic
   const [playerHands, setPlayerHands] = useState(null);
   const [cpuHands, setCpuHands] = useState(null);
@@ -93,8 +105,8 @@ const GameRPS = () => {
   // hardcoded game id
   const gameID = 1 ;
 
-  const userID = Cookies.get("userID");
-  const accessToken = Cookies.get("token");
+  // const userID = Cookies.get("userID");
+  // const accessToken = Cookies.get("token");
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
   const url = `${apiUrl}user/${userID}`;
 
@@ -241,6 +253,7 @@ const GameRPS = () => {
         </Modal.Body>
       </Modal>
     </div>
+    
   );
 };
 

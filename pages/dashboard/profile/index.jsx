@@ -8,10 +8,18 @@ import { logout } from '../../../store/slices/user';
 import Cookies from 'js-cookie';
 
 const Profile = () => {
-  const dispatch = useDispatch()
+  const router = useRouter();
+  const dispatch = useDispatch();
 
   const userID = Cookies.get("userID");
   const accessToken = Cookies.get("token");
+
+  // protected route, redirect user
+  useEffect (() => {
+    if(!accessToken) {
+      router.push('/login')
+    }
+  })
 
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
   const url = `${apiUrl}user/${userID}`;
@@ -88,7 +96,6 @@ const Profile = () => {
   // let history = useHistory();
   // const { logout } = useContext(myAuthContext);
 
-  const router = useRouter();
 
   const handleDelete = (e) => {
     e.preventDefault();

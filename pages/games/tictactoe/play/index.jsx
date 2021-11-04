@@ -9,8 +9,20 @@ import Save from "../../../../components/games/savescore";
 import Axios from "axios";
 import Link  from "next/link";
 import Cookies from "js-cookie";
+import { useRouter } from "next/router";
 
 const GameXO = () => {
+  // redirect user if not login yet 
+  const router = useRouter();
+  const userID = Cookies.get("userID");
+  const accessToken = Cookies.get("token");
+
+  useEffect (() => {
+    if(!accessToken) {
+      router.push('/login')
+    }
+  })
+
   // ===== tictactoe game logic =====
 
   const [playerScore, setPlayerScore] = useState(0);
@@ -130,8 +142,8 @@ const GameXO = () => {
   // harcoded game id
   const gameID = 2;
 
-  const userID = Cookies.get("userID");
-  const accessToken = Cookies.get("token");
+  // const userID = Cookies.get("userID");
+  // const accessToken = Cookies.get("token");
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
   const url = `${apiUrl}user/${userID}`;
 

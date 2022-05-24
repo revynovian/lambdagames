@@ -3,7 +3,7 @@
   background-size: cover;
   background-position: center;
   min-height: 100vh;
-  background-image: linear-gradient(to top,rgba(0, 0, 0, 0.712),rgba(0, 0, 0, 0.089)),url(/img/contoh.jpg);
+  background-image: linear-gradient(to top,rgba(0, 0, 0, 0.712),rgba(0, 0, 0, 0.089)),url(/img/sample-back2flip.jpg);
 }
 
 .aboutPage h1{

@@ -14,11 +14,11 @@ const Scores = () => {
         <Row>
           <Col lg={6}>
             <h1 className="display-4 fw-normal" style={{ color: "whitesmoke", marginTop: "50px" }}>
-              TOP SCORES
+              TOP PLAYERS
             </h1>
 
             <p className="lead" style={{ color: "whitesmoke", marginTop: "10px" }}>
-              This top score from various games provide on this platform
+              What&apos;s their experience from playing various games provide on this platform
             </p>
             <Button className="btn btn-warning btn-lg ps-5 pe-5" href="#home">
               See More

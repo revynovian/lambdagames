@@ -1,10 +1,18 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Challenge Chapter 10
+## LambdaGames
 
-### State Management (Redux) and Server Side Rendering (Next.js)
+Lambda Games is a online platform single player 2D classic games (e.g. snakes, rock-paper-scissor, tic-tac-toe, etc.). Users can create account and save their score and compete with other to take the top leaderboard.
 
-First, add environmental variables for API baseURL, Cloudinary API, and Cloudinary Preset
+---
+**Preview**
+
+<a href="https://ibb.co/31PDZbx"><img src="https://i.ibb.co/XXGhRPn/homepage-1.png" alt="homepage-1" border="0" /></a>
+
+---
+**How to Setup the Project (Front End Side)**
+
+add environmental variables for API baseURL, Cloudinary API, and Cloudinary Preset
 
 ```bash
 e.g 
@@ -27,21 +35,3 @@ npm run dev
 # or
 yarn dev
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-.
-
-### Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-### Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.

@@ -18,8 +18,8 @@ const Home = () => {
           <Row style={{ marginTop: "120px" }} className="text-start">
             <Col>
               <h1 className={styles.textAnimation_a}>PLAY</h1>
-              <h1 className={styles.textAnimation_b}>TRADITIONAL GAME</h1>
-              <h2 className={styles.typing}>Experience new traditional game play</h2>
+              <h1 className={styles.textAnimation_b}>CLASSIC GAMES</h1>
+              <h2 className={styles.typing}>New experience with modern design and gameplay</h2>
               <Link href="/games/rps/play" passHref>
                 <Button className={`${styles.customButton} mt-5 `} variant="warning">
                   <strong>PLAY NOW</strong>
@@ -38,10 +38,10 @@ const Home = () => {
         </Container>
       </div>
       <Thegames />
-      <Requirements />
-      <Features />
+      {/* <Requirements /> */}
+      {/* <Features /> */}
       <Scores />
-      <Subscribe />
+      {/* <Subscribe /> */}
     </main>
   );
 };

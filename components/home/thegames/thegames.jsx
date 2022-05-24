@@ -21,14 +21,14 @@ const Thegames = () => {
           <Col lg={8} className="slider-layout">
             <Carousel activeIndex={index} onSelect={handleSelect} slide={false} fade={false}>
               <Carousel.Item>
-                <Image className="d-block w-100" src={'/img/slider-1.jpg'} alt="First slide" />
+                <Image className="d-block w-100" src={'/img/slider-5.png'} alt="First slide" />
               </Carousel.Item>
               <Carousel.Item>
-                <Image className="d-block w-100" src={'/img/slider-2.jpg'} alt="Second slide" />
+                <Image className="d-block w-100" src={'/img/slider-4.png'} alt="Second slide" />
               </Carousel.Item>
-              <Carousel.Item>
+              {/* <Carousel.Item>
                 <Image className="d-block w-100" src={'/img/slider-2.jpg'} alt="Third slide" />
-              </Carousel.Item>
+              </Carousel.Item> */}
             </Carousel>
           </Col>
         </Row>

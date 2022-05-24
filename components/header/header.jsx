@@ -41,7 +41,7 @@ const Header = () => {
         <Container>
           <Navbar.Brand className="text-white" href="/">
           <Image src="/img/logobig.png" style={{width: "20px", height: "24px" ,marginRight: "10px"}} alt="logo-icon"/>
-            BINAR GAMEHUB
+            Lambda Games
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">

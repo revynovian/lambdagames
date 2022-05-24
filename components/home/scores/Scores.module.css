@@ -1,5 +1,6 @@
 .scorePage {
-  background-image: url(/img/top-score-bg.png);
+  /* background-image: url(/img/top-score-bg.png); */
+  background-image: linear-gradient(to top,rgba(0, 0, 0, 0.836),rgba(0, 0, 0, 0.253)),url(/img/sample-back2flip.jpg);
   background-size: cover;
   background-position: center;
   min-height: 120vh;
